@@ -64,10 +64,11 @@ const ProfileComponent = () => {
                         Senior Full-stack Engineer and Certified GenAI Leader
                     </p>
                     {/* Action Buttons and Hackathon Badge */}
-                    <div className="mt-4 flex gap-6 items-center justify-start md:justify-start">
-                        <ActionButtons />
-                        <HackathonBadge />
-                    </div>
+<div className="mt-4 flex flex-col md:flex-row gap-4 items-start md:items-center">
+    <ActionButtons />
+    <HackathonBadge  />
+</div>
+
      
                 </div>
             </div>

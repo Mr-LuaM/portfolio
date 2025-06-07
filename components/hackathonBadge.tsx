@@ -9,7 +9,7 @@ const HackathonBadge = () => {
     };
 
     return (
-        <div className="relative inline-block">
+<div className="relative w-full md:w-auto">
             {/* Main Badge */}
             <div className="flex items-center hackathon-badge rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer w-full md:w-auto"
                  style={{
