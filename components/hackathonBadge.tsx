@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 
-const HackathonBadge = () => {
+const HackathonBadge = ({ className = '' }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleClick = (e) => {
@@ -9,7 +9,7 @@ const HackathonBadge = () => {
     };
 
     return (
-<div className="relative w-full md:w-auto">
+        <div className={`relative w-full md:w-auto ${className}`}>
             {/* Main Badge */}
             <div className="flex items-center hackathon-badge rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer w-full md:w-auto"
                  style={{

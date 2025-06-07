@@ -1,5 +1,4 @@
-"use client"; 
-// components/Profile.tsx
+"use client";
 import { useEffect, useState } from 'react';
 import { createClient } from '../lib/supabase/client';  // Import the createClient function
 import { Profile } from '../lib/types';  // Import the Profile type
@@ -7,7 +6,6 @@ import Image from 'next/image';  // Import the next/image component
 import { ThemeSwitcher } from './theme-switcher';
 import ActionButtons from './actionButtons';
 import HackathonBadge from './hackathonBadge';
-import Achievements from './achievements';
 
 const ProfileComponent = () => {
     const [profile, setProfile] = useState<Profile | null>(null); // Use the Profile type
@@ -44,7 +42,7 @@ const ProfileComponent = () => {
                     alt="Bryl Lim"
                     width={160}
                     height={160}
-                    className="rounded-sm "
+                    className="rounded-lg w-32 h-32 md:w-40 md:h-40 object-cover flex-shrink-0"
                 />
                 {/* Profile Info */}
                 <div className="flex-1 min-w-0">
@@ -63,15 +61,19 @@ const ProfileComponent = () => {
                     <p className="text-sm md:text-base mt-1.5 md:mt-2">
                         Senior Full-stack Engineer and Certified GenAI Leader
                     </p>
-                    {/* Action Buttons and Hackathon Badge */}
-<div className="mt-4 flex flex-col md:flex-row gap-4 items-start md:items-center">
+                    {/* Action Buttons */}
+                  <div className="mt-4 flex gap-6 justify-start md:justify-start flex-col md:flex-row">
     <ActionButtons />
-    <HackathonBadge  />
+    <HackathonBadge className="md:block hidden" />
 </div>
 
-     
                 </div>
             </div>
+          {/* Hackathon Badge below the profile content */}
+<div className="md:hidden mt-6">
+    <HackathonBadge />
+</div>
+
         </section>
     );
 };
