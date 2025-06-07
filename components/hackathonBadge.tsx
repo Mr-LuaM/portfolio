@@ -31,7 +31,7 @@ const HackathonBadge = ({ className = '' }) => {
         fetchAchievements();
     }, []);
 
-    const handleClick = (e) => {
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.stopPropagation(); // Prevent link from closing the dropdown
     };
 
