@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
   // Exclude public pages like /tech-stack, /about, etc. from authentication
-  const publicPages = ["/tech-stack", "/about", "/contact"];  // Add more public paths if needed
+  const publicPages = ["/tech-stack", "/projects", "/certifications"];  // Add more public paths if needed
   
   if (publicPages.includes(request.nextUrl.pathname)) {
     return NextResponse.next();  // Allow public pages without authentication

@@ -11,6 +11,7 @@ export interface Profile {
   linkedin_url: string;
   github_url: string;
   location: string;
+  hobby: string;
 }
 
 // Type for Achievement data

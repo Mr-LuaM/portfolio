@@ -28,7 +28,7 @@ const ExperienceSection = () => {
 
   if (loading) {
     return (
-      <div >
+      <div className="bento-card p-4 col-span-1 md:col-span-2 md:row-span-2 space-y-2 group animate-fade-in animation-delay-200">
         <div className="flex items-center gap-2">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -47,7 +47,7 @@ const ExperienceSection = () => {
 
   if (error) {
     return (
-      <div >
+      <div className="bento-card p-4 col-span-1 md:col-span-2 md:row-span-2 space-y-2 group animate-fade-in animation-delay-200">
         <div className="flex items-center gap-2">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -65,7 +65,7 @@ const ExperienceSection = () => {
   }
 
   return (
-    <div >
+    <div className="bento-card p-4 col-span-1 md:col-span-2 md:row-span-2 space-y-2 group animate-fade-in animation-delay-200">
       <div className="flex items-center gap-2">
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -87,20 +87,20 @@ const ExperienceSection = () => {
           return (
             <div key={experience.id} className="relative pl-6 group/role">
               {/* Add glowing line segment for hover */}
-              <div className="absolute left-1.5 top-1.5 w-px h-full bg-black/20 opacity-0 group-hover/role:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute left-1.5 top-1.5 w-px h-full bg-foreground/20 opacity-0 group-hover/role:opacity-100 transition-opacity duration-300"></div>
 
               <div
                 className={`absolute left-0 top-1.5 w-3 h-3 rounded-full border-2 transition-all duration-300 ${
                   isLatest
-                    ? "border-black bg-black shadow-[0_0_0_4px_rgba(0,0,0,0.1)]"
-                    : "border-border bg-background group-hover/role:bg-black group-hover/role:border-black group-hover/role:shadow-[0_0_0_4px_rgba(0,0,0,0.1)]"
+                    ? "border-foreground bg-foreground shadow-[0_0_0_4px_hsl(var(--foreground)/0.1)]"
+                    : "border-border bg-background group-hover/role:bg-foreground group-hover/role:border-foreground group-hover/role:shadow-[0_0_0_4px_hsl(var(--foreground)/0.1)]"
                 }`}
               ></div>
 
               <div className="space-y-1">
                 <h3
                   className={`text-sm font-semibold transition-colors ${
-                    isLatest ? "text-black" : "group-hover/role:text-black"
+                    isLatest ? "text-foreground" : "group-hover/role:text-foreground"
                   }`}
                 >
                   {experience.role}
@@ -109,7 +109,7 @@ const ExperienceSection = () => {
                 <div className="flex items-center justify-between">
                   <span
                     className={`text-xs text-foreground/70 ${
-                      isLatest ? "text-black/70" : "group-hover/role:text-black/70"
+                      isLatest ? "text-foreground/70" : "group-hover/role:text-foreground/70"
                     }`}
                   >
                     {experience.company}
@@ -118,8 +118,8 @@ const ExperienceSection = () => {
                   <span
                     className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full transition-colors ${
                       isLatest
-                        ? "bg-black/10 border-black/20 border"
-                        : "bg-foreground/5 border border-foreground/10 group-hover/role:bg-black/10 group-hover/role:border-black/20"
+                        ? "bg-foreground/10 border-foreground/20 border"
+                        : "bg-foreground/5 border border-foreground/10 group-hover/role:bg-foreground/10 group-hover/role:border-foreground/20"
                     }`}
                   >
                     {new Date(experience.start_date).getFullYear()}
