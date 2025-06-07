@@ -3,7 +3,7 @@ import React from 'react';
 
 const TechStackSection = () => {
   return (
-    <div className="bento-card p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in animation-delay-200">
+    <div >
       {/* Header Section */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
