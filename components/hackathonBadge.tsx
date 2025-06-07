@@ -1,8 +1,35 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createClient } from '../lib/supabase/client';  // Import the createClient function
+import { Achievement } from '@/lib/types';
 
 const HackathonBadge = ({ className = '' }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [achievements, setAchievements] = useState<Achievement[]>([]);
+    const [latestAchievement, setLatestAchievement] = useState<Achievement | null>(null);
+
+    useEffect(() => {
+        const fetchAchievements = async () => {
+            const supabase = createClient();  // Initialize Supabase client here
+
+            // Fetch all achievements sorted by date descending (latest first)
+            const { data, error } = await supabase
+                .from('achievements')
+                .select('*')
+                .order('date', { ascending: false }); // Latest first
+            
+            if (error) {
+                console.error('Error fetching achievements:', error);
+            } else {
+                setAchievements(data);
+                if (data && data.length > 0) {
+                    setLatestAchievement(data[0]); // Set the latest achievement
+                }
+            }
+        };
+
+        fetchAchievements();
+    }, []);
 
     const handleClick = (e) => {
         e.stopPropagation(); // Prevent link from closing the dropdown
@@ -18,7 +45,7 @@ const HackathonBadge = ({ className = '' }) => {
                  }} 
                  onClick={() => setIsOpen(!isOpen)}>
                 <a
-                    href="https://dict.gov.ph/news-and-updates/21070"
+                    href={latestAchievement ? latestAchievement.details : "#"}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex h-7 md:h-8 items-center rounded-l-lg px-2.5 md:px-4 text-[10px] md:text-xs font-medium text-white transition-all duration-300 hover:brightness-110 gap-1 md:gap-1.5 whitespace-nowrap relative overflow-hidden group flex-1 justify-center md:justify-start"
@@ -31,7 +58,7 @@ const HackathonBadge = ({ className = '' }) => {
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 512 512">
                         <path d="M476.624,55.698C468.257,22.9,440.129,0,408.219,0c-0.005,0-0.012,0-0.017,0h-40.814H144.609H103.8 c-0.006,0-0.011,0-0.017,0c-31.91,0-60.039,22.902-68.406,55.696c-4.265,16.718-5.249,43.19,14.293,74.356 c14.927,23.808,39.204,45.759,72.2,65.384c4.091,62.185,50.632,112.966,110.857,123.567v50.975h-72.204 c-12.853,0-23.273,10.418-23.273,23.273v95.476c0,12.851,10.42,23.273,23.273,23.273h190.954 c12.853,0,23.273-10.422,23.273-23.273v-95.476c0-12.854-10.42-23.273-23.273-23.273h-72.204v-50.933 c60.38-10.512,107.061-61.412,111.096-123.75c32.875-19.588,57.069-41.491,71.962-65.243 C481.873,98.887,480.889,72.417,476.624,55.698z M80.476,67.204c3.463-13.565,14.344-20.658,23.315-20.658h0.005h17.574 l0.13,92.639C85.513,111.52,75.944,84.973,80.476,67.204z M390.662,139.062V46.545h17.548h0.005c8.965,0,19.85,7.095,23.312,20.66 C436.05,84.947,426.516,111.441,390.662,139.062z"></path>
                     </svg>
-                    <span className="relative z-10">DICT OpenGov Hackathon 2025 Champion</span>
+                    <span className="relative z-10">{latestAchievement ? latestAchievement.name : 'Loading...'}</span>
                 </a>
 
                 {/* Dropdown Toggle Button */}
@@ -57,7 +84,7 @@ const HackathonBadge = ({ className = '' }) => {
                         top: 'calc(100% + 8px)', // Positions the dropdown directly below the badge
                         left: '0',
                         zIndex: 2147483647,
-                        width: '320px',
+                        width: '100%', // Make the dropdown width match the button
                         backdropFilter: 'blur(10px)',
                     }}
                 >
@@ -66,17 +93,22 @@ const HackathonBadge = ({ className = '' }) => {
                         Other Hackathon Achievements
                     </div>
                     <div className="space-y-2">
-                        {/* Achievement items */}
-                        <div className="px-3 py-1.5 text-[10px] text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gradient-to-r hover:from-yellow-50 hover:to-amber-50 dark:hover:from-yellow-900/20 dark:hover:to-amber-900/20 transition-all duration-200 cursor-default border border-transparent hover:border-yellow-200 dark:hover:border-yellow-600 hover:shadow-sm">
-                            <div className="flex items-center gap-2">
-                                <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full flex-shrink-0"></div>
-                                <div className="flex items-center gap-1.5 flex-1 min-w-0">
-                                    <span className="font-medium truncate">National AI Prompt Design Challenge Finalist</span>
-                                    <span className="text-[8px] bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 text-gray-600 dark:text-gray-300 px-1.5 py-0.5 rounded-full font-medium whitespace-nowrap flex-shrink-0">AAP</span>
+                        {/* Dynamically render achievement items */}
+                        {achievements.length > 0 ? (
+                            achievements.map((achievement) => (
+                                <div key={achievement.id} className="px-3 py-1.5 text-[10px] text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gradient-to-r hover:from-yellow-50 hover:to-amber-50 dark:hover:from-yellow-900/20 dark:hover:to-amber-900/20 transition-all duration-200 cursor-default border border-transparent hover:border-yellow-200 dark:hover:border-yellow-600 hover:shadow-sm">
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full flex-shrink-0"></div>
+                                        <div className="flex items-center gap-1.5 flex-1 min-w-0">
+                                            <span className="font-medium truncate">{achievement.name}</span>
+                                            <span className="text-[8px] bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 text-gray-600 dark:text-gray-300 px-1.5 py-0.5 rounded-full font-medium whitespace-nowrap flex-shrink-0">{achievement.type}</span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        {/* Repeat for other achievements */}
+                            ))
+                        ) : (
+                            <div className="px-3 py-1.5 text-sm text-gray-600">No achievements found.</div>
+                        )}
                     </div>
                 </div>
             )}
