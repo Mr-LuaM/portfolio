@@ -20,8 +20,7 @@ const Home = () => {
         <div className="border bg-green-100 p-4 col-span-1 md:col-span-2 md:row-span-2 space-y-2 group animate-fade-in animation-delay-200">
             <TechStack />
 
-        </div>            <TechStack />
-
+        </div>         
     
 
           <div className="border bg-green-100 p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in animation-delay-200">
