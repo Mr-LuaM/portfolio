@@ -8,6 +8,7 @@ import Projects from '@/components/projects';
 import CertificationsSection from '@/components/certifications';
 import BlogPostsSection from '@/components/blog';
 import TestimonialsSection from '@/components/testimonials';
+import ContactSection from '@/components/contact';
 const Home = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -56,12 +57,12 @@ const Home = () => {
 
           </div>
              <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 space-y-3 group animate-fade-in animation-delay-500">
-                    <TestimonialsSection />
+                    <ContactSection />
           
 
           </div>
              <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in animation-delay-500">
-                    <TestimonialsSection />
+                    <BlogPostsSection />
           
 
           </div>

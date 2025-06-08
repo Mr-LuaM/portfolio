@@ -1,43 +1,39 @@
-"use client";
-import { useEffect, useState } from "react";
-import { createClient } from "../lib/supabase/client";
-
-type BlogPost = {
-  id: number;
-  title: string;
-  date: string;
-  read_time: string;
-  description: string;
-  tags: string[];
-};
+"use client"
+import { useEffect, useState } from "react"
+import { createClient } from "../lib/supabase/client" // Ensure you have this client configured
+import { BlogPost } from "@/lib/types"
 
 export default function BlogPostsSection() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]) // State to hold blog posts
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      const supabase = createClient();
+    const fetchBlogPosts = async () => {
+      const supabase = createClient() // Initialize Supabase client
 
       try {
-        const { data, error } = await supabase
-          .from("blog_posts")
-          .select("*")
-          .order("date", { ascending: false })
-          .limit(3); // limit for recent posts
-
-        if (error) throw error;
-        setPosts(data as BlogPost[]);
+        // Fetch blog posts from Supabase
+        const { data, error } = await supabase.from("blog_posts").select("*").order("date", { ascending: false }) // Ordering by date
+        if (error) throw error
+        setBlogPosts(data) // Set the blog posts to the state
       } catch (err) {
-        setError(err instanceof Error ? err.message : String(err));
+        setError(err instanceof Error ? err.message : String(err)) // Handle error
       } finally {
-        setLoading(false);
+        setLoading(false) // Set loading to false when data is fetched
       }
-    };
+    }
 
-    fetchPosts();
-  }, []);
+    fetchBlogPosts() // Fetch the data when the component mounts
+  }, [])
+
+  if (loading) {
+    return <div>Loading...</div> // Show loading state
+  }
+
+  if (error) {
+    return <div>Error: {error}</div> // Show error message
+  }
 
   return (
     <div className="bento-card p-4 col-span-1 md:col-span-4 space-y-4 group animate-fade-in animation-delay-500">
@@ -54,28 +50,21 @@ export default function BlogPostsSection() {
         </a>
       </div>
 
-      {loading && <p className="text-sm text-foreground/70">Loading...</p>}
-      {error && <p className="text-sm text-red-500">Error: {error}</p>}
-
       <div className="space-y-3">
-        {posts.map((post) => (
+        {blogPosts.map((post, index) => (
           <div
-            key={post.id}
-            className="p-4 rounded-lg bg-foreground/5 dark:bg-gray-800 border border-foreground/10 hover:bg-foreground/10 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+            key={index}
+            className="p-4 rounded-lg bg-foreground/5 border border-foreground/10 hover:bg-foreground/10 transition-colors cursor-pointer"
           >
             <h3 className="text-sm font-semibold mb-2">{post.title}</h3>
             <div className="flex items-center gap-2 text-xs text-foreground/70 mb-2">
-              <span>{new Date(post.date).toLocaleDateString(undefined, {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              })}</span>
+              <span>{new Date(post.date).toLocaleDateString()}</span> {/* Display formatted date */}
               <span>•</span>
               <span>{post.read_time}</span>
             </div>
             <p className="text-xs text-foreground/70 mb-3 leading-relaxed">{post.description}</p>
             <div className="flex flex-wrap gap-1">
-              {post.tags?.map((tag, tagIndex) => (
+              {post.tags && post.tags.map((tag, tagIndex) => (
                 <span
                   key={tagIndex}
                   className="px-2 py-1 text-[10px] font-medium bg-foreground/10 border border-foreground/20 rounded-md"
@@ -88,5 +77,5 @@ export default function BlogPostsSection() {
         ))}
       </div>
     </div>
-  );
+  )
 }
