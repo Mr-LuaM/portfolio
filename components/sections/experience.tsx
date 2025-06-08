@@ -1,8 +1,10 @@
 "use client";
 import { Experience } from "@/lib/types"; // Import Experience type
 
-
 const ExperienceSectionComponent = ({ experience }: { experience: Experience[] }) => {
+  // Sort experience by id in descending order (latest first)
+  const sortedExperience = [...experience].sort((a, b) => b.id - a.id);
+
   return (
     <div>
       <div className="flex items-center gap-2">
@@ -20,8 +22,8 @@ const ExperienceSectionComponent = ({ experience }: { experience: Experience[] }
       <div className="relative space-y-4 mt-4">
         <div className="absolute left-1.5 top-1.5 bottom-2 w-px bg-border"></div>
 
-        {experience?.map((experience, index) => {
-          const isLatest = index === 0; // First item is the latest due to ordering
+        {sortedExperience?.map((experience, index) => {
+          const isLatest = index === 0; // First item is the latest due to sorting
 
           return (
             <div key={experience.id} className="relative pl-6 group/role">
