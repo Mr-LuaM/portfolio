@@ -8,7 +8,7 @@ import { Skill } from "@/lib/types"; // Import Skill type
 
 export default function TechStackPage() {
   // Fetch tech stack data using SWR
-  const { data, error, isValidating: isLoading } = useSWR<Skill[]>("skills", fetcher);
+  const { data, error, isLoading } = useSWR<Skill[]>("skills", fetcher);
 
   if (error) {
     return (
@@ -18,7 +18,7 @@ export default function TechStackPage() {
     );
   }
 
-  if (isLoading || !data) {  // Using isLoading instead of isValidating
+  if (isLoading || !data) {  
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="flex items-center gap-4 mb-8">

@@ -1,76 +1,104 @@
 "use client";
+import { useState } from "react";
 import useSWR from "swr"; // Import SWR
 import { fetcher } from "@/lib/fetcher"; // The fetcher function we just created
 import ProfileSection from "@/components/sections/profile";
 import AboutSection from "@/components/sections/about";
 import TechStackSection from "@/components/sections/techStack";
-// import other sections as needed
-
+import ExperienceSection from "@/components/sections/experience";
+// import HobbySection from "@/components/sections/hobby";
+// import ProjectSection from "@/components/sections/project";
+// import CertificationSection from "@/components/sections/certification";
+// import TestimonialSection from "@/components/sections/testimonial";
+// import ContactSection from "@/components/sections/contact";
+// import BlogPostSection from "@/components/sections/blog";
 import { Skill, Testimonial, Profile, BlogPost, Experience, Project, Certification, Contact } from "@/lib/types"; // Import necessary types
 
-export default function HomePage() {
+const HomePage = () => {
   // Fetch data with SWR and cache it
-  const { data: profile } = useSWR<Profile[]>("profile", fetcher);
-  const { data: techStack } = useSWR<Skill[]>("skills", fetcher);
-  const { data: experience } = useSWR<Experience[]>("experience", fetcher);  
-  const { data: projects } = useSWR<Project[]>("projects", fetcher);  
-  const { data: certifications } = useSWR<Certification[]>("certifications", fetcher);  
-  const { data: testimonials } = useSWR<Testimonial[]>("testimonials", fetcher);
-  const { data: contact } = useSWR<Contact[]>("contact", fetcher);  
-  const { data: blogPosts } = useSWR<BlogPost[]>("blog_posts", fetcher);
+  const { data: profile, error: profileError, isLoading: profileLoading } = useSWR<Profile[]>("profile", fetcher);
+  const { data: techStack, error: techStackError, isLoading: techStackLoading } = useSWR<Skill[]>("skills", fetcher);
+  const { data: experience, error: experienceError, isLoading: experienceLoading } = useSWR<Experience[]>("experience", fetcher);
+  const { data: projects, error: projectsError, isLoading: projectsLoading } = useSWR<Project[]>("projects", fetcher);
+  const { data: certifications, error: certificationsError, isLoading: certificationsLoading } = useSWR<Certification[]>("certifications", fetcher);
+  const { data: testimonials, error: testimonialsError, isLoading: testimonialsLoading } = useSWR<Testimonial[]>("testimonials", fetcher);
+  const { data: contact, error: contactError, isLoading: contactLoading } = useSWR<Contact[]>("contact", fetcher);
+  const { data: blogPosts, error: blogPostsError, isLoading: blogPostsLoading } = useSWR<BlogPost[]>("blog_posts", fetcher);
 
-  // No need to handle loading/error manually as Suspense will manage this in the layout
+  // Combine loading state
+  const isLoading = profileLoading || techStackLoading || experienceLoading || projectsLoading || certificationsLoading || testimonialsLoading || contactLoading || blogPostsLoading;
+  
+  // Error state
+  const error = profileError || techStackError || experienceError || projectsError || certificationsError || testimonialsError || contactError || blogPostsError;
+  
+  // If there's an error, display it
+  if (error) {
+    return <div className="max-w-4xl mx-auto">Error fetching data: {error.message || "Please try again later."}</div>;
+  }
 
-  // Use the first profile from the array (assuming there is at least one profile)
-  const profileData = profile ? profile[0] : null;
+  // If data is still loading, show loading state
+  if (isLoading) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="text-sm text-foreground/70">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!profile || !techStack || !experience || !testimonials || !blogPosts || !experience || !projects || !certifications || !contact) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="text-sm text-foreground/70">No profile...</div>
+      </div>
+    );
+  }
+  // Use the first profile from the array
+  const profileData = profile[0];
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      {/* Profile Section */}
-      {profileData && <ProfileSection profileData={profileData} />}
-      
-      {/* Grid layout for other sections */}
+      {/* Pass the fetched data as props */}
+      <ProfileSection profileData={profileData} />
+
       <div className="grid grid-cols-1 md:grid-cols-6 gap-2">
-        {/* About Section */}
         <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in">
-          {profileData && <AboutSection profileData={profileData} />}
+          <AboutSection profileData={profileData} />
         </div>
 
-        {/* Tech Stack Section */}
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in animation-delay-200">
-          {techStack && <TechStackSection techStack={techStack} limit={3} />}
-        </div>
-
-        {/* Experience Section */}
         <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 md:row-span-2 space-y-2 group animate-fade-in animation-delay-200">
-          {/* <ExperienceSection experience={experience} /> */}
+          <ExperienceSection experience={experience}/>
         </div>
 
-        {/* Project Section */}
+        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in animation-delay-200">
+          <TechStackSection techStack={techStack} limit={3} />
+        </div>
+
+        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 space-y-2 group animate-fade-in animation-delay-200">
+          {/* <HobbySection hobby={profileData.hobby} /> */}
+        </div>
+
         <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in animation-delay-300">
           {/* <ProjectSection project={projects} /> */}
         </div>
 
-        {/* Certification Section */}
         <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-3 space-y-2 group animate-fade-in animation-delay-400">
           {/* <CertificationSection certification={certifications} /> */}
         </div>
 
-        {/* Testimonial Section */}
         <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-3 space-y-2 group overflow-hidden animate-fade-in animation-delay-400">
           {/* <TestimonialSection testimonials={testimonials} /> */}
         </div>
 
-        {/* Contact Section */}
         <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 space-y-3 group animate-fade-in animation-delay-500">
-          {/* <ContactSection contact={contact} /> */}
+          {/* <ContactSection contact={contact}/> */}
         </div>
 
-        {/* Blog Post Section */}
         <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in animation-delay-500">
           {/* <BlogPostSection blogPosts={blogPosts} /> */}
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default HomePage;
