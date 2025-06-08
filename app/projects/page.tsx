@@ -44,7 +44,7 @@ export default function AllProjects() {
       </div>
 
       {/* Pass the projects data as a prop with limit and isProjectPage as true */}
-      <ProjectSection projects={projects} limit={projects.length} isProjectPage={true} />
+      <ProjectSection projects={projects ?? []} limit={projects?.length ?? 0} isProjectPage={true} />
     </div>
   );
 }
