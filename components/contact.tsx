@@ -61,10 +61,10 @@ export default function ContactSection() {
         <h2 className="text-lg font-bold">Connect</h2>
       </div>
 
-      <div className="space-y-4 mt-4">
+      <div className="space-y-4 mt-4 ">
         {/* Email Section */}
         <a
-          className="block p-2 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors"
+          className="block p-2 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors dark:bg-black dark:text-white hover:dark:bg-neutral-800"
           href={`mailto:${contact?.email}`}
         >
           <p className="text-xs text-foreground/70">Email</p>
@@ -78,7 +78,7 @@ export default function ContactSection() {
             <a
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center p-2 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors"
+              className="flex items-center justify-center p-2 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors dark:bg-black dark:text-white hover:dark:bg-neutral-800"
               aria-label="Visit LinkedIn profile"
               title="Visit LinkedIn profile"
               href={contact?.linkedin_url}
@@ -90,7 +90,7 @@ export default function ContactSection() {
             <a
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center p-2 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors"
+              className="flex items-center justify-center p-2 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors dark:bg-black dark:text-white hover:dark:bg-neutral-800"
               aria-label="Visit GitHub profile"
               title="Visit GitHub profile"
               href={contact?.github_url}
@@ -109,18 +109,18 @@ export default function ContactSection() {
         {/* A member of Section */}
         {memberships.length > 0 && (
           <div>
-            <p className="text-xs text-foreground/70 mb-2">A member of</p>
-            <div className="space-y-2">
+            <p className="text-xs text-foreground/70 mb-2 ">A member of</p>
+            <div className="space-y-2 ">
               {memberships.map((membership, index) => (
                 <a
                   key={index}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block p-2 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors group"
+                  className="block p-2 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors group dark:bg-black dark:text-white hover:dark:bg-neutral-800"
                   href={membership.organization_url}
                 >
-                  <div className="flex items-center justify-between">
-                    <p className="text-[11px] font-medium leading-relaxed">{membership.organization_name}</p>
+                  <div className="flex items-center justify-between ">
+                    <p className="text-[11px] font-medium leading-relaxed ">{membership.organization_name}</p>
                     <svg
                       className="w-3.5 h-3.5 text-foreground/50 transition-transform group-hover:translate-x-0.5 flex-shrink-0"
                       fill="none"

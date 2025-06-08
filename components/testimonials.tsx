@@ -28,13 +28,7 @@ export default function TestimonialsSection() {
     fetchTestimonials();
   }, []);
 
-  const nextTestimonial = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-  };
 
-  const prevTestimonial = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
 
   const goToTestimonial = (index: number) => {
     setCurrentIndex(index);
@@ -60,7 +54,7 @@ export default function TestimonialsSection() {
       <div className="space-y-4 mt-4">
         <div className="min-h-[120px]">
           <blockquote className="text-sm leading-relaxed text-foreground/90 mb-4">
-            "{testimonials[currentIndex].testimonial}"
+            &quot;{testimonials[currentIndex].testimonial}&quot;
           </blockquote>
 <div className="pt-3 border-t border-border"></div>
           <div >

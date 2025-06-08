@@ -51,14 +51,7 @@ export default function AllProjects() {
     );
   }
 
-    function getDomainFromUrl(project_url: string): React.ReactNode {
-        try {
-            const url = new URL(project_url);
-            return url.hostname.replace(/^www\./, "");
-        } catch {
-            return project_url;
-        }
-    }
+  
 
   return (
     <div className="page-transition max-w-4xl mx-auto px-4 py-8">

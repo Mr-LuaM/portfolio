@@ -83,3 +83,12 @@ export interface Contact {
   github_url: string;
   other_links: Record<string, string>;
 }
+export interface BlogPost  {
+  id: number; // Unique identifier for the blog post
+  title: string; // The title of the blog post
+  date: string; // The date the blog post was published (use ISO format or Date object)
+  read_time: string; // The estimated reading time (e.g., "3 min read")
+  description: string; // A short description or excerpt of the blog post
+  tags: string[]; // An array of tags related to the blog post
+  created_at: string; // Timestamp of when the post was created
+}

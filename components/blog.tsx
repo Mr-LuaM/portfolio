@@ -36,7 +36,7 @@ export default function BlogPostsSection() {
   }
 
   return (
-    <div className="bento-card p-4 col-span-1 md:col-span-4 space-y-4 group animate-fade-in animation-delay-500">
+    <div className="">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-bold">Recent Blog Posts</h2>
         <a
@@ -51,10 +51,10 @@ export default function BlogPostsSection() {
       </div>
 
       <div className="space-y-3">
-        {blogPosts.map((post, index) => (
+        {blogPosts.slice(0, 2).map((post, index) => ( 
           <div
             key={index}
-            className="p-4 rounded-lg bg-foreground/5 border border-foreground/10 hover:bg-foreground/10 transition-colors cursor-pointer"
+            className="p-4 rounded-lg hover:-translate-y-0.5 hover:bg-muted transition-transform duration-200 border border-foreground/10  cursor-pointer "
           >
             <h3 className="text-sm font-semibold mb-2">{post.title}</h3>
             <div className="flex items-center gap-2 text-xs text-foreground/70 mb-2">
@@ -64,7 +64,7 @@ export default function BlogPostsSection() {
             </div>
             <p className="text-xs text-foreground/70 mb-3 leading-relaxed">{post.description}</p>
             <div className="flex flex-wrap gap-1">
-              {post.tags && post.tags.map((tag, tagIndex) => (
+              {post.tags && post.tags.map((tag: string, tagIndex: number) => (
                 <span
                   key={tagIndex}
                   className="px-2 py-1 text-[10px] font-medium bg-foreground/10 border border-foreground/20 rounded-md"
