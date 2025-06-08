@@ -71,7 +71,7 @@ const HackathonBadge = ({ className = '' }) => {
                     onClick={() => setIsOpen(!isOpen)}
                 >
                     <svg className="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
             </div>
