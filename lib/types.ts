@@ -14,6 +14,9 @@ export interface Profile {
   hobby: string;
 }
 
+export interface Hobby{
+    hobby: string | null;
+}
 // Type for Achievement data
 export interface Achievement {
   id: number;

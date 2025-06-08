@@ -2,6 +2,11 @@
 import { Skill } from "@/lib/types"; // Import Skill type
 import Link from "next/link";
 
+interface TechStackSectionProps {
+  techStack: Skill[]; // Array of skills
+  limit?: number; // Optional prop to limit the number of categories displayed
+  isTechStackPage?: boolean; // Prop to determine if it's the full tech stack page
+}
 // Helper function to render skills for each category
 const renderSkills = (
   skills: Skill[],
@@ -26,11 +31,7 @@ const TechStackSection = ({
   techStack,
   limit = 3, // Default to 3 if no limit is passed
   isTechStackPage = false, // Prop to indicate if we're in the full tech stack page
-}: {
-  techStack: Skill[]; // Array of skills
-  limit?: number; // Optional prop to limit the number of categories displayed
-  isTechStackPage?: boolean; // Prop to determine if it's the full tech stack page
-}) => {
+}: TechStackSectionProps) => {
   // Extract unique categories from techStack
   const categories = Array.from(new Set(techStack.map((skill) => skill.category)));
 

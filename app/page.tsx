@@ -6,12 +6,12 @@ import ProfileSection from "@/components/sections/profile";
 import AboutSection from "@/components/sections/about";
 import TechStackSection from "@/components/sections/techStack";
 import ExperienceSection from "@/components/sections/experience";
-// import HobbySection from "@/components/sections/hobby";
-// import ProjectSection from "@/components/sections/project";
-// import CertificationSection from "@/components/sections/certification";
-// import TestimonialSection from "@/components/sections/testimonial";
-// import ContactSection from "@/components/sections/contact";
-// import BlogPostSection from "@/components/sections/blog";
+import HobbySection from "@/components/sections/hobby";
+import ProjectSection from "@/components/sections/project";
+import CertificationSection from "@/components/sections/certification";
+import TestimonialSection from "@/components/sections/testimonial";
+import ContactSection from "@/components/sections/contact";
+import BlogPostSection from "@/components/sections/blog";
 import { Skill, Testimonial, Profile, BlogPost, Experience, Project, Certification, Contact } from "@/lib/types"; // Import necessary types
 
 const HomePage = () => {
@@ -74,11 +74,11 @@ const HomePage = () => {
         </div>
 
         <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 space-y-2 group animate-fade-in animation-delay-200">
-          {/* <HobbySection hobby={profileData.hobby} /> */}
+          <HobbySection hobby={profileData.hobby} />
         </div>
 
         <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in animation-delay-300">
-          {/* <ProjectSection project={projects} /> */}
+          <ProjectSection projects={projects} />
         </div>
 
         <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-3 space-y-2 group animate-fade-in animation-delay-400">
