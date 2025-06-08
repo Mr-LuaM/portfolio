@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { createClient } from "../lib/supabase/client"; // Ensure you have this client configured
+import { createClient } from "../../lib/supabase/client"; // Ensure you have this client configured
 import { Testimonial } from "@/lib/types";
 export default function TestimonialsSection() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);

@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react"
-import { createClient } from "../lib/supabase/client" // Ensure you have this client configured
+import { createClient } from "../../lib/supabase/client" // Ensure you have this client configured
 import { BlogPost } from "@/lib/types"
 
 export default function BlogPostsSection() {

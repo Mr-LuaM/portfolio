@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
-import { createClient } from "../lib/supabase/client"
-import type { Experience } from "../lib/types"
+import { createClient } from "../../lib/supabase/client"
+import type { Experience } from "../../lib/types"
 
 const ExperienceSection = () => {
   const [experiences, setExperiences] = useState<Experience[] | null>(null)

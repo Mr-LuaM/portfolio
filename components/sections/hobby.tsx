@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { createClient } from "../lib/supabase/client"; // Make sure you have the supabase client created
+import { createClient } from "../../lib/supabase/client"; // Make sure you have the supabase client created
 import { Profile } from "@/lib/types";
 
 const AboutSection = () => {
