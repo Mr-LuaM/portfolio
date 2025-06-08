@@ -1,6 +1,5 @@
 // lib/types.ts
 
-// Type for Profile data
 export interface Profile {
   id: number;
   name: string;
@@ -17,7 +16,7 @@ export interface Profile {
 export interface Hobby{
     hobby: string | null;
 }
-// Type for Achievement data
+
 export interface Achievement {
   id: number;
   name: string;
@@ -27,7 +26,7 @@ export interface Achievement {
   details: string;
 }
 
-// Type for Project data
+
 export interface Project {
   id: number;
   name: string;
@@ -39,7 +38,7 @@ export interface Project {
   date: string; // Date as string or Date object
 }
 
-// Type for Skill data
+
 export interface Skill {
   id: number;
   name: string;
@@ -47,7 +46,7 @@ export interface Skill {
   category: string;
 }
 
-// Type for Experience data
+
 export interface Experience {
   id: number;
   company: string;
@@ -58,7 +57,7 @@ export interface Experience {
   technologies: string;
 }
 
-// Type for Certification data
+
 export interface Certification {
   id: number;
   name: string;
@@ -68,7 +67,7 @@ export interface Certification {
   description: string;
 }
 
-// Type for Testimonial data
+
 export interface Testimonial {
   id: number;
   author_name: string;
@@ -78,7 +77,6 @@ export interface Testimonial {
   date: string;
 }
 
-// Type for Contact data
 export interface Contact {
   id: number;
   email: string;
@@ -86,6 +84,12 @@ export interface Contact {
   github_url: string;
   other_links: Record<string, string>;
 }
+
+export interface Membership {
+  organization_name: string; 
+  organization_url: string
+}
+
 export interface BlogPost  {
   id: number; // Unique identifier for the blog post
   title: string; // The title of the blog post

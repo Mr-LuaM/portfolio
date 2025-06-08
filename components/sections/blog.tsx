@@ -1,60 +1,38 @@
-"use client"
-import { useEffect, useState } from "react"
-import { createClient } from "../../lib/supabase/client" // Ensure you have this client configured
-import { BlogPost } from "@/lib/types"
+"use client";
+import { BlogPost } from "@/lib/types"; // Import BlogPost type
+import Link from "next/link";
 
-export default function BlogPostsSection() {
-  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]) // State to hold blog posts
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+interface BlogPostsSectionProps {
+  blogPosts: BlogPost[]; // Expecting blog posts data as a prop
+  limit?: number; // Optional prop to limit the number of blog posts displayed
+  isPage?: boolean; // Prop to indicate if it's the full blog posts page
+}
 
-  useEffect(() => {
-    const fetchBlogPosts = async () => {
-      const supabase = createClient() // Initialize Supabase client
-
-      try {
-        // Fetch blog posts from Supabase
-        const { data, error } = await supabase.from("blog_posts").select("*").order("date", { ascending: false }) // Ordering by date
-        if (error) throw error
-        setBlogPosts(data) // Set the blog posts to the state
-      } catch (err) {
-        setError(err instanceof Error ? err.message : String(err)) // Handle error
-      } finally {
-        setLoading(false) // Set loading to false when data is fetched
-      }
-    }
-
-    fetchBlogPosts() // Fetch the data when the component mounts
-  }, [])
-
-  if (loading) {
-    return <div>Loading...</div> // Show loading state
-  }
-
-  if (error) {
-    return <div>Error: {error}</div> // Show error message
-  }
-
+const BlogPostsSection = ({ blogPosts, limit = 2, isPage = false }: BlogPostsSectionProps) => {
   return (
     <div className="">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-bold">Recent Blog Posts</h2>
-        <a
-          className="text-xs text-foreground/70 hover:text-foreground flex items-center gap-1 transition-colors"
-          href="/blog"
-        >
-          View All
-          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </a>
+        {!isPage && (
+          <h2 className="text-lg font-bold">Recent Blog Posts</h2>
+        )}
+        {!isPage && (
+          <Link
+            className="text-xs text-foreground/70 hover:text-foreground flex items-center gap-1 transition-colors"
+            href="/blog"
+          >
+            View All
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </Link>
+        )}
       </div>
 
       <div className="space-y-3">
-        {blogPosts.slice(0, 2).map((post, index) => ( 
+        {blogPosts.slice(0, limit).map((post, index) => ( 
           <div
             key={index}
-            className="p-4 rounded-lg hover:-translate-y-0.5 hover:bg-muted transition-transform duration-200 border border-foreground/10  cursor-pointer "
+            className="p-4 rounded-lg hover:-translate-y-0.5 hover:bg-muted transition-transform duration-200 border border-foreground/10 cursor-pointer"
           >
             <h3 className="text-sm font-semibold mb-2">{post.title}</h3>
             <div className="flex items-center gap-2 text-xs text-foreground/70 mb-2">
@@ -77,5 +55,7 @@ export default function BlogPostsSection() {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
+
+export default BlogPostsSection;

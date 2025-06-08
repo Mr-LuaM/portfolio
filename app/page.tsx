@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import useSWR from "swr"; // Import SWR
 import { fetcher } from "@/lib/fetcher"; // The fetcher function we just created
 import ProfileSection from "@/components/sections/profile";
@@ -12,7 +11,7 @@ import CertificationSection from "@/components/sections/certification";
 import TestimonialSection from "@/components/sections/testimonial";
 import ContactSection from "@/components/sections/contact";
 import BlogPostSection from "@/components/sections/blog";
-import { Skill, Testimonial, Profile, BlogPost, Experience, Project, Certification, Contact } from "@/lib/types"; // Import necessary types
+import { Skill, Testimonial, Profile, BlogPost, Experience, Project, Certification, Contact, Membership } from "@/lib/types"; // Import necessary types
 
 const HomePage = () => {
   // Fetch data with SWR and cache it
@@ -23,13 +22,14 @@ const HomePage = () => {
   const { data: certifications, error: certificationsError, isLoading: certificationsLoading } = useSWR<Certification[]>("certifications", fetcher);
   const { data: testimonials, error: testimonialsError, isLoading: testimonialsLoading } = useSWR<Testimonial[]>("testimonials", fetcher);
   const { data: contact, error: contactError, isLoading: contactLoading } = useSWR<Contact[]>("contact", fetcher);
+  const { data: membership, error: membershipError, isLoading: membershipLoading } = useSWR<Membership[]>("memberships", fetcher);
   const { data: blogPosts, error: blogPostsError, isLoading: blogPostsLoading } = useSWR<BlogPost[]>("blog_posts", fetcher);
 
   // Combine loading state
-  const isLoading = profileLoading || techStackLoading || experienceLoading || projectsLoading || certificationsLoading || testimonialsLoading || contactLoading || blogPostsLoading;
+  const isLoading = profileLoading || techStackLoading || experienceLoading || projectsLoading || certificationsLoading || testimonialsLoading || contactLoading || membershipLoading || blogPostsLoading;
   
   // Error state
-  const error = profileError || techStackError || experienceError || projectsError || certificationsError || testimonialsError || contactError || blogPostsError;
+  const error = profileError || techStackError || experienceError || projectsError || certificationsError || testimonialsError || contactError || membershipError || blogPostsError;
   
   // If there's an error, display it
   if (error) {
@@ -45,7 +45,7 @@ const HomePage = () => {
     );
   }
 
-  if (!profile || !techStack || !experience || !testimonials || !blogPosts || !experience || !projects || !certifications || !contact) {
+  if (!profile || !techStack || !experience || !testimonials || !blogPosts || !experience || !projects || !certifications || !contact || !membership) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="text-sm text-foreground/70">No profile...</div>
@@ -74,7 +74,7 @@ const HomePage = () => {
         </div>
 
         <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 space-y-2 group animate-fade-in animation-delay-200">
-          <HobbySection hobby={profileData.hobby} />
+          <HobbySection hobby={profileData?.hobby ?? []} />
         </div>
 
         <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in animation-delay-300">
@@ -82,19 +82,19 @@ const HomePage = () => {
         </div>
 
         <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-3 space-y-2 group animate-fade-in animation-delay-400">
-          {/* <CertificationSection certification={certifications} /> */}
+          <CertificationSection certifications={certifications} />
         </div>
 
         <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-3 space-y-2 group overflow-hidden animate-fade-in animation-delay-400">
-          {/* <TestimonialSection testimonials={testimonials} /> */}
+          <TestimonialSection testimonials={testimonials} />
         </div>
 
         <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 space-y-3 group animate-fade-in animation-delay-500">
-          {/* <ContactSection contact={contact}/> */}
+          <ContactSection contact={contact[0]} memberships={membership} />
         </div>
 
         <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in animation-delay-500">
-          {/* <BlogPostSection blogPosts={blogPosts} /> */}
+          <BlogPostSection blogPosts={blogPosts} limit={2}/>
         </div>
       </div>
     </div>
