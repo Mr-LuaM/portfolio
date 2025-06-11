@@ -3,8 +3,7 @@ import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import Footer from "@/components/sections/footer";
-import { Suspense } from "react";
-import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+
 
 // Define default URL based on environment
 const defaultUrl = process.env.VERCEL_URL
@@ -46,23 +45,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.className} antialiased`}>
+      <body className={`${geistSans.className} antialiased min-h-screen flex flex-col`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <Suspense
-            fallback={
-              <div className="min-h-screen bg-background p-6">
-                <p className="text-sm text-foreground/70">Loading...</p>
-              </div>
-            }
-          >
+          <main className="grow">
             {children}
-            <Footer />
-          </Suspense>
+          </main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

@@ -40,11 +40,15 @@ export default function BlogPage() {
           <ArrowLeft className="w-4 h-4" />
           Back to Home
         </Link>
-        <h1 className="text-2xl font-bold">All Projects</h1>
       </div>
-
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold mb-2">Blog</h1>
+        <p className="text-base text-foreground/70">
+        Thoughts on software development, tech, and my experiences.
+        </p>
+      </div>
       {/* Pass the projects data as a prop with limit and isProjectPage as true */}
       <BlogPostsSection blogPosts={blogPosts ?? []} limit={blogPosts?.length ?? 0} isPage={true} />
-    </div>
+   </div>
   );
 }

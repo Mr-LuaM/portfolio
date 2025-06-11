@@ -1,6 +1,7 @@
 export default function Footer() {
   return (
-    <footer className="max-w-4xl mx-auto px-4 py-4 border-t border-border ">
+    <footer className="w-full">
+      <div className="max-w-4xl mx-auto px-4 py-4 border-t border-border ">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         {/* Left Side - Copyright */}
         <p className="text-sm text-foreground/70 whitespace-nowrap">© 2025 Mark Lua. All rights reserved.</p>
@@ -16,6 +17,7 @@ export default function Footer() {
             Designed with inspiration from <span className="font-semibold">Bryl Lim</span>.
           </p>
         </div>
+      </div>
       </div>
     </footer>
   )
