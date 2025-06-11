@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
+import Footer from "@/components/sections/footer";
+import { Suspense } from "react";
+import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 
 // Define default URL based on environment
 const defaultUrl = process.env.VERCEL_URL
@@ -12,17 +15,20 @@ const defaultUrl = process.env.VERCEL_URL
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
   title: "Mark Lua | Software Developer Portfolio",
-  description: "Explore the portfolio of Mark Lua, a skilled software developer proficient in Next.js, Supabase, and various modern web technologies.",
+  description:
+    "Explore the portfolio of Mark Lua, a skilled software developer proficient in Next.js, Supabase, and various modern web technologies.",
   openGraph: {
     title: "Mark Lua | Software Developer Portfolio",
-    description: "Explore the portfolio of Mark Lua, a skilled software developer proficient in Next.js, Supabase, and various modern web technologies.",
+    description:
+      "Explore the portfolio of Mark Lua, a skilled software developer proficient in Next.js, Supabase, and various modern web technologies.",
     url: defaultUrl,
-    images: "/opengraph-image.png",  // Default image used for Open Graph
+    images: "/opengraph-image.png", // Default image used for Open Graph
   },
   twitter: {
     card: "summary_large_image",
     title: "Mark Lua | Software Developer Portfolio",
-    description: "Explore the portfolio of Mark Lua, a skilled software developer proficient in Next.js, Supabase, and various modern web technologies.",
+    description:
+      "Explore the portfolio of Mark Lua, a skilled software developer proficient in Next.js, Supabase, and various modern web technologies.",
     images: "/opengraph-image.png",
   },
 };
@@ -47,7 +53,27 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-            {children}
+          <ErrorBoundary
+            fallback={
+              <div className="min-h-screen bg-background p-6">
+                <h1 className="text-2xl font-bold">Something went wrong</h1>
+                <p className="text-sm text-foreground/70">
+                  Please try again later.
+                </p>
+              </div>
+            }
+          >
+            <Suspense
+              fallback={
+                <div className="min-h-screen bg-background p-6">
+                  <p className="text-sm text-foreground/70">Loading...</p>
+                </div>
+              }
+            >
+              {children}
+              <Footer />
+            </Suspense>
+          </ErrorBoundary>
         </ThemeProvider>
       </body>
     </html>
