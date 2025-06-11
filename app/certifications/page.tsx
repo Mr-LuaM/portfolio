@@ -5,7 +5,7 @@ import CertificationsSection from "@/components/sections/certification"; // Impo
 import { Certification } from "@/lib/types"; // Import Certification type
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-export default function CertificationsPageWrapper() {
+export default function CertificationsPage() {
   // Fetch certifications data using SWR
   const { data: certifications, error, isLoading } = useSWR<Certification[]>("certifications", fetcher);
 

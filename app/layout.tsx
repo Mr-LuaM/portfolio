@@ -53,27 +53,16 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ErrorBoundary
+          <Suspense
             fallback={
               <div className="min-h-screen bg-background p-6">
-                <h1 className="text-2xl font-bold">Something went wrong</h1>
-                <p className="text-sm text-foreground/70">
-                  Please try again later.
-                </p>
+                <p className="text-sm text-foreground/70">Loading...</p>
               </div>
             }
           >
-            <Suspense
-              fallback={
-                <div className="min-h-screen bg-background p-6">
-                  <p className="text-sm text-foreground/70">Loading...</p>
-                </div>
-              }
-            >
-              {children}
-              <Footer />
-            </Suspense>
-          </ErrorBoundary>
+            {children}
+            <Footer />
+          </Suspense>
         </ThemeProvider>
       </body>
     </html>

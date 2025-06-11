@@ -37,7 +37,7 @@ const HomePage = () => {
   }
 
   // If data is still loading, show loading state
-  if (isLoading) {
+  if (isLoading || !profile || !techStack || !experience || !testimonials || !blogPosts || !experience || !projects || !certifications || !contact || !membership) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="text-sm text-foreground/70">Loading...</div>
@@ -45,13 +45,7 @@ const HomePage = () => {
     );
   }
 
-  if (!profile || !techStack || !experience || !testimonials || !blogPosts || !experience || !projects || !certifications || !contact || !membership) {
-    return (
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="text-sm text-foreground/70">No profile...</div>
-      </div>
-    );
-  }
+
   // Use the first profile from the array
   const profileData = profile[0];
 

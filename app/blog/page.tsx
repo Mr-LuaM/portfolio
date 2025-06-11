@@ -3,12 +3,12 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import useSWR from "swr"; // Import SWR for data fetching
 import { fetcher } from "@/lib/fetcher"; // The fetcher function you created
-import { Project } from "@/lib/types";
-import ProjectSection from "@/components/sections/project"; // Import ProjectSection
+import { BlogPost } from "@/lib/types";
+import BlogPostsSection from "@/components/sections/blog";
 
-export default function AllProjectsPage() {
+export default function BlogPage() {
   // Fetch projects using SWR
-  const { data: projects, error, isLoading } = useSWR<Project[]>("projects", fetcher);
+  const { data: blogPosts, error, isLoading } =  useSWR<BlogPost[]>("blog_posts", fetcher);
 
   if (isLoading) {
     return (
@@ -44,7 +44,7 @@ export default function AllProjectsPage() {
       </div>
 
       {/* Pass the projects data as a prop with limit and isProjectPage as true */}
-      <ProjectSection projects={projects ?? []} limit={projects?.length ?? 0} isProjectPage={true} />
+      <BlogPostsSection blogPosts={blogPosts ?? []} limit={blogPosts?.length ?? 0} isPage={true} />
     </div>
   );
 }
