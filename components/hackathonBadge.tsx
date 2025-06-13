@@ -8,7 +8,17 @@ const HackathonBadge = ({ className = "" }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   // Use SWR for data fetching and caching
-  const { data: achievements, error, isLoading } = useSWR<Achievement[]>("achievements", fetcher);
+  const { data: achievements, error, isLoading } = useSWR<Achievement[]>(
+  "achievements",
+  () =>
+    fetcher<Achievement>("achievements", {
+      sort: [
+        { column: "date", ascending: false },
+        { column: "id", ascending: false },
+      ],
+    })
+);
+
 
   // Get the latest achievement (first one from the array)
   const latestAchievement = achievements?.[0] || null;
@@ -35,7 +45,7 @@ const HackathonBadge = ({ className = "" }) => {
         onClick={() => setIsOpen(!isOpen)}
       >
         <a
-          href={latestAchievement ? latestAchievement.details : "#"}
+          href={latestAchievement ? latestAchievement.achievement_url : "#"}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex h-7 md:h-8 items-center rounded-l-lg px-2.5 md:px-4 text-[10px] md:text-xs font-medium text-white transition-all duration-300 hover:brightness-110 gap-1 md:gap-1.5 whitespace-nowrap relative overflow-hidden group flex-1 justify-center md:justify-start"
@@ -92,16 +102,19 @@ const HackathonBadge = ({ className = "" }) => {
         >
           <div className="text-xs font-bold text-gray-700 dark:text-gray-300 mb-3 px-2 flex items-center gap-2">
             <div className="w-2 h-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full"></div>
-            Other Hackathon Achievements
+            Other Achievements
           </div>
           <div className="space-y-2">
             {/* Dynamically render achievement items */}
             {Array.isArray(achievements) && achievements.length > 0 ? (
               achievements.map((achievement) => (
-                <div
-                  key={achievement.id}
-                  className="px-3 py-1.5 text-[10px] text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gradient-to-r hover:from-yellow-50 hover:to-amber-50 dark:hover:from-yellow-900/20 dark:hover:to-amber-900/20 transition-all duration-200 cursor-default border border-transparent hover:border-yellow-200 dark:hover:border-yellow-600 hover:shadow-sm"
-                >
+                <a
+  key={achievement.id}
+  href={achievement.achievement_url}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="block px-3 py-1.5 text-[10px] text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gradient-to-r hover:from-yellow-50 hover:to-amber-50 dark:hover:from-yellow-900/20 dark:hover:to-amber-900/20 transition-all duration-200 border border-transparent hover:border-yellow-200 dark:hover:border-yellow-600 hover:shadow-sm"
+>
                   <div className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full flex-shrink-0"></div>
                     <div className="flex items-center gap-1.5 flex-1 min-w-0">
@@ -111,7 +124,7 @@ const HackathonBadge = ({ className = "" }) => {
                       </span>
                     </div>
                   </div>
-                </div>
+                </a>
               ))
             ) : (
               <div className="px-3 py-1.5 text-sm text-gray-600">No achievements found.</div>

@@ -37,14 +37,13 @@ const ProjectSection = ({ projects, limit = 3, isProjectPage = false }: ProjectS
             <h2 className="text-lg font-bold">Recent Projects</h2>
           </div>
           <Link
-            className="text-xs text-foreground/70 hover:text-foreground flex items-center gap-1 transition-colors"
-            href="/projects"
-          >
-            View All
-            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5l7 7-7 7"></path>
-            </svg>
-          </Link>
+  href="/projects"
+  className="text-xs flex items-center gap-1 animated-gradient-text"
+>
+  View All
+  <span className="text-sm">➜</span> {/* This will inherit the gradient */}
+</Link>
+
         </div>
       )}
 

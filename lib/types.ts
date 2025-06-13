@@ -24,6 +24,7 @@ export interface Achievement {
   organization: string;
   date: string; // You could use Date if you want, or string for formatted date
   details: string;
+  achievement_url: string; // URL to the achievement details or certificate
 }
 
 
