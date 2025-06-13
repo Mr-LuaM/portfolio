@@ -1,9 +1,64 @@
 "use client";
-import { Testimonial } from "@/lib/types"; // Import the Testimonial type
-import { useState } from "react";
+import { Testimonial } from "@/lib/types";
+import { useEffect, useRef, useState, TouchEvent } from "react";
+
+const AUTO_SCROLL_INTERVAL = 30000; // 30 seconds
 
 const TestimonialsSection = ({ testimonials }: { testimonials: Testimonial[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const touchStartXRef = useRef<number | null>(null);
+
+  // Auto-scroll
+  useEffect(() => {
+  if (!testimonials || testimonials.length <= 1) return;
+
+  intervalRef.current = setInterval(() => {
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  }, AUTO_SCROLL_INTERVAL);
+
+  return () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+  };
+}, [testimonials]);
+
+
+  const handleMouseEnter = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+  };
+
+  const handleMouseLeave = () => {
+    if (testimonials.length <= 1) return;
+
+    intervalRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    }, AUTO_SCROLL_INTERVAL);
+  };
+
+  const handleTouchStart = (e: TouchEvent) => {
+    touchStartXRef.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: TouchEvent) => {
+    if (touchStartXRef.current === null) return;
+
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchEndX - touchStartXRef.current;
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        // Swipe right
+        setCurrentIndex((prev) =>
+          prev === 0 ? testimonials.length - 1 : prev - 1
+        );
+      } else {
+        // Swipe left
+        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      }
+    }
+
+    touchStartXRef.current = null;
+  };
 
   const goToTestimonial = (index: number) => {
     setCurrentIndex(index);
@@ -27,15 +82,36 @@ const TestimonialsSection = ({ testimonials }: { testimonials: Testimonial[] }) 
         <h2 className="text-lg font-bold">Testimonials</h2>
       </div>
 
-      <div className="space-y-4 mt-4">
-        <div className="min-h-[120px]">
-          <blockquote className="text-sm leading-relaxed text-foreground/90 mb-4">
-            &quot;{testimonials[currentIndex].testimonial}&quot;
-          </blockquote>
-          <div className="pt-3 border-t border-border"></div>
-          <div>
-            <p className="text-sm font-semibold">{testimonials[currentIndex].author_name}</p>
-            <p className="text-xs text-foreground/70">{testimonials[currentIndex].author_role} at {testimonials[currentIndex].company}</p>
+      <div
+        className="space-y-4 mt-4"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
+        <div className="min-h-[120px] overflow-hidden relative">
+          <div
+            className="transition-transform duration-500 ease-in-out"
+style={{
+  transform: `translateX(-${currentIndex * 100}%)`,
+  transition: "transform 0.5s ease-in-out",
+  display: "flex"
+}}
+          >
+            {testimonials.map((t, index) => (
+              <div key={index} className="w-full flex-shrink-0 px-1">
+                <blockquote className="text-sm leading-relaxed text-foreground/90 mb-4">
+                  &quot;{t.testimonial}&quot;
+                </blockquote>
+                <div className="pt-3 border-t border-border"></div>
+                <div>
+                  <p className="text-sm font-semibold">{t.author_name}</p>
+                  <p className="text-xs text-foreground/70">
+                    {t.author_role} at {t.company}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -58,5 +134,3 @@ const TestimonialsSection = ({ testimonials }: { testimonials: Testimonial[] }) 
 };
 
 export default TestimonialsSection;
-
-

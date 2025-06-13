@@ -12,7 +12,7 @@ const ProfileSectionComponent = ({ profileData }: { profileData: Profile }) => {
       <div className="flex items-center gap-4 md:gap-6">
         {/* Profile Image */}
         <Image
-          src={profileData?.image_url || "/fallback-image.jpg"} // Fallback image if profile image is unavailable
+          src={profileData?.image_url || "https://avatars.githubusercontent.com/u/130156447?v=4"} // Fallback image if profile image is unavailable
           alt={profileData?.name || "Profile Image"}
           width={160}
           height={160}
