@@ -1,50 +1,110 @@
-"use client"
+"use client";
 
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import useSWR from "swr"
-import { fetcher } from "@/lib/fetcher"
-import { BlogPost } from "@/lib/types"
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import { ArrowLeft, LinkIcon } from "lucide-react";
+import { fetcher } from "@/lib/fetcher";
+import { BlogPost } from "@/lib/types";
 
-import BlogCard from "./BlogCard" // Optional: create this for individual post display
+import ReactMarkdown from "react-markdown";
+import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/github-dark.css"; // You can use other styles
 
-export default function BlogPage() {
-  const { data: blogPosts, error, isLoading } = useSWR<BlogPost[]>("blog_posts", fetcher)
+export default function BlogPostPage() {
+  const { slug } = useParams();
+  const [post, setPost] = useState<BlogPost | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [copySuccess, setCopySuccess] = useState(false);
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background p-6">
-        dddd
-      </div>
-    )
+  useEffect(() => {
+    if (!slug) return;
+
+    fetcher(`/blog_posts?slug=eq.${slug}`)
+      .then((res) => {
+        setPost(res?.[0] || null);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch blog post:", err);
+        setLoading(false);
+      });
+  }, [slug]);
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    } catch (err) {
+      console.error("Copy failed", err);
+    }
+  };
+
+  const copyPageLink = async () => {
+    await copyToClipboard(window.location.href);
+  };
+
+  if (loading) {
+    return <div className="p-6">Loading...</div>;
   }
 
-  if (error || !blogPosts) {
-    return (
-      <div className="min-h-screen bg-background p-6">
-        <div className="max-w-4xl mx-auto text-red-500">
-          Failed to load blog posts.
-        </div>
-      </div>
-    )
+  if (!post) {
+    return <div className="p-6">Post not found.</div>;
   }
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-4xl mx-auto">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 group">
-          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-          Back to Home
-        </Link>
+    <div className="max-w-4xl mx-auto px-4 py-8">
+      <Link
+        href="/blog"
+        className="inline-flex items-center gap-2 text-sm text-foreground/70 hover:text-foreground mb-8 group"
+      >
+        <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+        Back to Blog
+      </Link>
 
-        <h1 className="text-3xl font-bold mb-8">Blog</h1>
-
-        <div className="space-y-6">
-          {blogPosts.map((post) => (
-            <BlogCard key={post.id} post={post} />
+      <header className="mb-12">
+        <div className="flex items-center gap-2 text-sm text-foreground/50 mb-3">
+          <time>{new Date(post.created_at).toLocaleDateString()}</time>
+          <span>•</span>
+          <span>{Math.ceil(post.content.split(" ").length / 200)} min read</span>
+        </div>
+        <h1 className="text-4xl font-bold mb-6 leading-tight">{post.title}</h1>
+        <div className="flex flex-wrap gap-2">
+          {post.tags.map((tag) => (
+            <span
+              key={tag}
+              className="px-2.5 py-1 text-sm rounded-md bg-foreground/5 border border-foreground/10"
+            >
+              {tag}
+            </span>
           ))}
+        </div>
+      </header>
+
+      <article className="bento-card p-8">
+        <div className="prose prose-neutral dark:prose-invert max-w-none">
+          <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+            {post.content}
+          </ReactMarkdown>
+        </div>
+      </article>
+
+      <div className="mt-12 pt-8 border-t border-border">
+        <h2 className="text-lg font-semibold mb-4">Share this post</h2>
+        <div className="flex gap-3">
+          <button
+            onClick={copyPageLink}
+            className="p-2 rounded-md bg-foreground/5 hover:bg-foreground/10 transition-colors group relative"
+            title="Copy link"
+          >
+            <LinkIcon className="w-5 h-5" />
+            <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-foreground/90 text-background rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+              {copySuccess ? "Copied!" : "Copy link"}
+            </span>
+          </button>
         </div>
       </div>
     </div>
-  )
+  );
 }

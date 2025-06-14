@@ -98,6 +98,7 @@ export interface BlogPost  {
   slug: string; // A URL-friendly version of the title, used for routing
   date: string; // The date the blog post was published (use ISO format or Date object)
   read_time: string; // The estimated reading time (e.g., "3 min read")
+  content: string; // The full content of the blog post, typically in Markdown or HTML format
   description: string; // A short description or excerpt of the blog post
   tags: string[]; // An array of tags related to the blog post
   created_at: string; // Timestamp of when the post was created
