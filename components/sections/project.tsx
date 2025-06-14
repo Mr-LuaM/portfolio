@@ -51,14 +51,23 @@ const ProjectSection = ({ projects, limit = 3, isProjectPage = false }: ProjectS
         {displayedProjects?.map((project) => (
           <div
             key={project.id}
-            className="border rounded-lg p-3 space-y-1 hover:-translate-y-0.5  transition-transform duration-200 dark:bg-neutral-900 "
+            className="border rounded-lg p-4 space-y-1 hover:-translate-y-0.5  transition-transform duration-200 dark:bg-neutral-900 "
           >
             <a target="_blank" rel="noopener noreferrer" className="block space-y-1" href={project.project_url}>
-              <h3 className="text-sm font-semibold">{project.name}</h3>
-              <p className="text-xs  ">{project.description}</p>
-              <p className="text-xs text-foreground/50 dark:  font-mono bg-gray-100 dark:bg-black dark:text-white px-2 py-1 rounded-md inline-block mt-1">
-                {getDomainFromUrl(project.project_url)}
-              </p>
+             <h3 className={`font-semibold ${isProjectPage ? "text-lg" : "text-sm"}`}>
+  {project.name}
+</h3>
+<p className={isProjectPage ? "text-sm" : "text-xs"}>
+  {project.description}
+</p>
+<p
+  className={`font-mono bg-gray-100 dark:bg-black dark:text-white px-2 py-1 rounded-md inline-block mt-1 ${
+    isProjectPage ? "text-sm" : "text-xs"
+  } text-foreground/50`}
+>
+  {getDomainFromUrl(project.project_url)}
+</p>
+
             </a>
           </div>
         ))}
