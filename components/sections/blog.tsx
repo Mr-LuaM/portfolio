@@ -35,27 +35,20 @@ const BlogPostsSection = ({ blogPosts, limit = 2, isPage = false }: BlogPostsSec
       className={`${isPage ? "space-y-3" : "space-y-1.5"} p-4 rounded-lg hover:-translate-y-0.5 hover:bg-muted transition-transform duration-200 border border-foreground/10 cursor-pointer`}
     >
      {isPage && (
-    <article><header>
       <div className={`flex items-center gap-2  ${isPage ? "text-xs" : "text-[10px]"}`}>
         <span>{new Date(post.date).toLocaleDateString()}</span>
         <span>•</span>
         <span>{post.read_time}</span>
       </div>
+      )}
       <h3 className={`font-semibold  ${isPage ? "text-lg" : "text-sm"}`}>
         {post.title}
       </h3>
-      </header></article>
-      )}
-     
          {!isPage && (
-          <div> <h3 className={`font-semibold  ${isPage ? "text-lg" : "text-sm"}`}>
-        {post.title}
-      </h3>
       <div className={`flex items-center gap-2  ${isPage ? "text-xs" : "text-[10px]"}`}>
         <span>{new Date(post.date).toLocaleDateString()}</span>
         <span>•</span>
         <span>{post.read_time}</span>
-      </div>
       </div>
       )}
       <p className={`${isPage ? "text-sm" : "text-xs"} line-clamp-2`}>
