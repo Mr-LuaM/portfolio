@@ -79,8 +79,8 @@ const BlogPostsSection = ({ blogPosts, limit = 2, isPage = false }: BlogPostsSec
 
       <div className="space-y-3">
         {displayedPosts.map((post, index) => (
-          <Link key={post.id || index} href={`/blog/${post.slug}`} className="block">
-            <div className="p-3 rounded-lg border transition-colors cursor-pointer space-y-1.5">
+          <Link key={post.id || index} href={`/blog/${post.slug}`} className="block hover:-translate-y-0.5  transition-transform duration-200">
+            <div className="p-3 rounded-lg border transition-colors cursor-pointer space-y-1.5 ">
               <h3 className="text-sm font-semibold">{post.title}</h3>
               <div className="flex items-center gap-2 text-[10px]">
                 <time>{new Date(post.date).toLocaleDateString()}</time>
