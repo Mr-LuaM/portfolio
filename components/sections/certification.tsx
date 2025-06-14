@@ -14,7 +14,7 @@ const CertificationsSection = ({ certifications, isPage = false }: Certification
         <div className="flex items-center gap-2">
           <h2 className="text-lg font-bold">Recent Certifications</h2>
         </div>
-        <div className="text-sm text-foreground/70">No certifications available.</div>
+        <div className="text-sm  ">No certifications available.</div>
       </div>
     );
   }
@@ -37,7 +37,7 @@ const CertificationsSection = ({ certifications, isPage = false }: Certification
               <h2 className="text-lg font-bold">Recent Certifications</h2>
             </div>
             <Link
-              className="text-xs text-foreground/70 hover:text-foreground flex items-center gap-1 transition-colors"
+              className="text-xs hover:text-foreground flex items-center gap-1 transition-colors"
               href="/certifications"
             >
               View All
@@ -56,7 +56,7 @@ const CertificationsSection = ({ certifications, isPage = false }: Certification
               href={cert.certificate_url}
             >
               <h3 className="text-xs font-semibold">{cert.name}</h3>
-              <p className="text-[11px] text-foreground/70 dark:text-foreground/50">{cert.issuer}</p>
+              <p className="text-[11px]   dark:text-foreground/50">{cert.issuer}</p>
             </Link>
           ))}
         </div>
@@ -65,18 +65,18 @@ const CertificationsSection = ({ certifications, isPage = false }: Certification
       {(isPage || certifications.length > 3) && (
          <div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 ">
         {certifications.map((cert, index) => (
           <a
             key={index}
             target="_blank"
             rel="noopener noreferrer"
-            className="border rounded-lg p-4 space-y-2 group  animate-fade-in"
+            className="border rounded-lg p-4 space-y-2 group dark:bg-neutral-900 animate-fade-in hover:-translate-y-0.5 hover:bg-muted transition-transform duration-200"
             href={cert.certificate_url}
             style={{ animationDelay: `${index * 100}ms` }}
           >
             <h3 className="text-lg font-semibold transition-colors">{cert.name}</h3>
-            <p className="text-sm text-foreground/70">{cert.issuer}</p>
+            <p className="text-sm  ">{cert.issuer}</p>
           </a>
         ))}
       </div>

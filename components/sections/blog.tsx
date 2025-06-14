@@ -17,7 +17,7 @@ const BlogPostsSection = ({ blogPosts, limit = 2, isPage = false }: BlogPostsSec
         )}
         {!isPage && (
           <Link
-            className="text-xs text-foreground/70 hover:text-foreground flex items-center gap-1 transition-colors"
+            className="text-xs   hover:text-foreground flex items-center gap-1 transition-colors"
             href="/blog"
           >
             View All
@@ -35,12 +35,12 @@ const BlogPostsSection = ({ blogPosts, limit = 2, isPage = false }: BlogPostsSec
             className="p-4 rounded-lg hover:-translate-y-0.5 hover:bg-muted transition-transform duration-200 border border-foreground/10 cursor-pointer"
           >
             <h3 className="text-sm font-semibold mb-2">{post.title}</h3>
-            <div className="flex items-center gap-2 text-xs text-foreground/70 mb-2">
+            <div className="flex items-center gap-2 text-xs   mb-2">
               <span>{new Date(post.date).toLocaleDateString()}</span> {/* Display formatted date */}
               <span>•</span>
               <span>{post.read_time}</span>
             </div>
-            <p className="text-xs text-foreground/70 mb-3 leading-relaxed">{post.description}</p>
+            <p className="text-xs   mb-3 leading-relaxed">{post.description}</p>
             <div className="flex flex-wrap gap-1">
               {post.tags && post.tags.map((tag: string, tagIndex: number) => (
                 <span

@@ -31,13 +31,13 @@ const ContactSection = ({ contact, memberships }: ContactSectionProps) => {
           className="block p-2 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors dark:bg-black dark:text-white hover:dark:bg-neutral-800"
           href={`mailto:${contact.email}`}
         >
-          <p className="text-xs text-foreground/70">Email</p>
+          <p className="text-xs  ">Email</p>
           <p className="text-sm font-medium">{contact.email}</p>
         </a>
 
         {/* Social Links Section */}
         <div>
-          <p className="text-xs text-foreground/70 mb-2">Social Links</p>
+          <p className="text-xs   mb-2">Social Links</p>
           <div className="grid grid-cols-3 gap-2">
             {contact.linkedin_url && (
               <a
@@ -77,7 +77,7 @@ const ContactSection = ({ contact, memberships }: ContactSectionProps) => {
         {/* A member of Section */}
         {memberships.length > 0 && (
           <div>
-            <p className="text-xs text-foreground/70 mb-2">A member of</p>
+            <p className="text-xs   mb-2">A member of</p>
             <div className="space-y-2">
               {memberships.map((membership, index) => (
                 <a

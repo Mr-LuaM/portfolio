@@ -2,7 +2,7 @@
 import { Testimonial } from "@/lib/types";
 import { useEffect, useRef, useState, TouchEvent } from "react";
 
-const AUTO_SCROLL_INTERVAL = 30000; // 30 seconds
+const AUTO_SCROLL_INTERVAL = 30000; // 30w  seconds
 
 const TestimonialsSection = ({ testimonials }: { testimonials: Testimonial[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -106,7 +106,7 @@ style={{
                 <div className="pt-3 border-t border-border"></div>
                 <div>
                   <p className="text-sm font-semibold">{t.author_name}</p>
-                  <p className="text-xs text-foreground/70">
+                  <p className="text-xs  ">
                     {t.author_role} at {t.company}
                   </p>
                 </div>

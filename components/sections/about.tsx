@@ -17,7 +17,7 @@ const AboutSectionComponent = ({ profileData }: { profileData: Profile }) => {
       </div>
 
       {/* About Description */}
-      <p className="text-sm text-foreground/70 leading-relaxed mt-1">
+      <p className="text-sm leading-relaxed mt-1">
         {profileData?.bio || "No bio available."}
       </p>
     </div>

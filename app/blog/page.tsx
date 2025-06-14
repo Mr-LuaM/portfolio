@@ -14,7 +14,7 @@ export default function BlogPage() {
     return (
       <div className="min-h-screen bg-background p-6">
         <div className="max-w-4xl mx-auto">
-          <div className="text-sm text-foreground/70">Loading...</div>
+          <div className="text-sm">Loading...</div>
         </div>
       </div>
     );
@@ -34,7 +34,7 @@ export default function BlogPage() {
     <div className="page-transition max-w-4xl mx-auto px-4 py-8">
       <div className="flex items-center gap-4 mb-8 animate-fade-in">
         <Link
-          className="inline-flex items-center gap-2 text-sm text-foreground/70 hover:text-foreground transition-colors"
+          className="inline-flex items-center gap-2 text-sm hover:text-foreground transition-colors"
           href="/"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -43,7 +43,7 @@ export default function BlogPage() {
       </div>
       <div className="mb-6">
         <h1 className="text-3xl font-bold mb-2">Blog</h1>
-        <p className="text-base text-foreground/70">
+        <p className="text-base  ">
         Thoughts on software development, tech, and my experiences.
         </p>
       </div>

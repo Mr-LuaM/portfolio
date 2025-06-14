@@ -22,13 +22,13 @@ export default function TechStackPage() {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="flex items-center gap-4 mb-8">
-          <Link href="/" className="flex items-center gap-2 text-sm text-foreground/70 hover:text-foreground transition-colors ">
+          <Link href="/" className="flex items-center gap-2 text-sm   hover:text-foreground transition-colors ">
             <ArrowLeft className="w-4 h-4" />
             Back to Home
           </Link>
           <h1 className="text-2xl font-bold">Tech Stack</h1>
         </div>
-        <div className="text-sm text-foreground/70">Loading...</div>
+        <div className="text-sm  ">Loading...</div>
       </div>
     );
   }
@@ -37,7 +37,7 @@ export default function TechStackPage() {
     <div className="page-transition max-w-4xl mx-auto px-4 py-8">
       {/* Header */}
       <div className="flex items-center gap-4 mb-8 animate-fade-in">
-        <Link href="/" className="flex items-center gap-2 text-sm text-foreground/70 hover:text-foreground transition-colors ">
+        <Link href="/" className="flex items-center gap-2 text-sm   hover:text-foreground transition-colors ">
           <ArrowLeft className="w-4 h-4" />
           Back to Home
         </Link>

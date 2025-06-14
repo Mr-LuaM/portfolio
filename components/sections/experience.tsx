@@ -49,8 +49,8 @@ const ExperienceSectionComponent = ({ experience }: { experience: Experience[] }
 
                 <div className="flex items-center justify-between">
                   <span
-                    className={`text-xs text-foreground/70 ${
-                      isLatest ? "text-foreground/70" : "group-hover/role:text-foreground/70"
+                    className={`text-xs   ${
+                      isLatest ? " " : "group-hover/role: "
                     }`}
                   >
                     {experience.company}

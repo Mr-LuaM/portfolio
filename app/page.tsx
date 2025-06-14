@@ -40,7 +40,7 @@ const HomePage = () => {
   if (isLoading || !profile || !techStack || !experience || !testimonials || !blogPosts || !experience || !projects || !certifications || !contact || !membership) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="text-sm text-foreground/70">Loading...</div>
+        <div className="text-sm">Loading...</div>
       </div>
     );
   }

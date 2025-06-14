@@ -17,6 +17,7 @@ const ProfileSectionComponent = ({ profileData }: { profileData: Profile }) => {
           width={160}
           height={160}
           className="rounded-lg w-32 h-32 md:w-40 md:h-40 object-cover flex-shrink-0"
+          loading="lazy"
         />
         {/* Profile Info */}
         <div className="flex-1 min-w-0">
@@ -25,7 +26,7 @@ const ProfileSectionComponent = ({ profileData }: { profileData: Profile }) => {
             <ThemeSwitcher />
           </div>
           {/* Location and Bio */}
-          <p className="text-xs md:text-sm text-foreground/70 mt-0.5 flex items-center gap-1">
+          <p className="text-xs md:text-sm   mt-0.5 flex items-center gap-1">
             <svg
               className="w-3 h-3 md:w-3.5 md:h-3.5 flex-shrink-0"
               fill="none"

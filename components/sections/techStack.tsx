@@ -17,8 +17,8 @@ const renderSkills = (
       key={skill.id}
       className={`${
         isTechStackPage
-          ? "px-3 py-1 text-sm font-medium border border-foreground/10 rounded-lg hover:bg-foreground/10 transition-colors cursor-pointer"
-          : "px-2 py-0.5 text-xs rounded-md border border-foreground/10"
+          ? "px-3 py-1 text-sm font-medium border border-foreground/10 rounded-lg hover:bg-muted hover:-translate-y-0.5  transition-transform duration-200 dark:border-white"
+          : "px-2 py-0.5 text-xs rounded-md border border-foreground/10 dark:border-white"
       }`}
     >
       {skill.name}
@@ -65,7 +65,7 @@ const TechStackSection = ({
             <h2 className="text-lg font-bold">Tech Stack</h2>
           </div>
           <Link
-            className="text-xs text-foreground/70 hover:text-foreground flex items-center gap-1 transition-colors"
+            className="text-xs   hover:text-foreground flex items-center gap-1 transition-colors"
             href="/tech-stack"
           >
             View All

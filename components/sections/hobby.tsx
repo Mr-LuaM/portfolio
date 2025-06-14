@@ -17,7 +17,7 @@ const HobbySectionComponent = ({ hobby }: Hobby) => {
       </div>
 
       {/* Hobby Description */}
-      <p className="text-sm text-foreground/70 leading-relaxed mt-1">
+      <p className="text-sm   leading-relaxed mt-1">
         {hobby || "No hobby information available."}
       </p>
     </div>
