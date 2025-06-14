@@ -29,31 +29,53 @@ const BlogPostsSection = ({ blogPosts, limit = 2, isPage = false }: BlogPostsSec
       </div>
 
       <div className="space-y-3">
-        {blogPosts.slice(0, limit).map((post, index) => ( 
-          <div
-            key={index}
-            className="p-4 rounded-lg hover:-translate-y-0.5 hover:bg-muted transition-transform duration-200 border border-foreground/10 cursor-pointer"
-          >
-            <h3 className="text-sm font-semibold mb-2">{post.title}</h3>
-            <div className="flex items-center gap-2 text-xs   mb-2">
-              <span>{new Date(post.date).toLocaleDateString()}</span> {/* Display formatted date */}
-              <span>•</span>
-              <span>{post.read_time}</span>
-            </div>
-            <p className="text-xs   mb-3 leading-relaxed">{post.description}</p>
-            <div className="flex flex-wrap gap-1">
-              {post.tags && post.tags.map((tag: string, tagIndex: number) => (
-                <span
-                  key={tagIndex}
-                  className="px-2 py-1 text-[10px] font-medium bg-foreground/10 border border-foreground/20 rounded-md"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
+  {blogPosts.slice(0, limit).map((post, index) => (
+    <div
+      key={index}
+      className={`${isPage ? "space-y-3" : "space-y-1.5"} p-4 rounded-lg hover:-translate-y-0.5 hover:bg-muted transition-transform duration-200 border border-foreground/10 cursor-pointer`}
+    >
+     {isPage && (
+    <article><header>
+      <div className={`flex items-center gap-2  ${isPage ? "text-xs" : "text-[10px]"}`}>
+        <span>{new Date(post.date).toLocaleDateString()}</span>
+        <span>•</span>
+        <span>{post.read_time}</span>
       </div>
+      <h3 className={`font-semibold  ${isPage ? "text-lg" : "text-sm"}`}>
+        {post.title}
+      </h3>
+      </header></article>
+      )}
+     
+         {!isPage && (
+          <div> <h3 className={`font-semibold  ${isPage ? "text-lg" : "text-sm"}`}>
+        {post.title}
+      </h3>
+      <div className={`flex items-center gap-2  ${isPage ? "text-xs" : "text-[10px]"}`}>
+        <span>{new Date(post.date).toLocaleDateString()}</span>
+        <span>•</span>
+        <span>{post.read_time}</span>
+      </div>
+      </div>
+      )}
+      <p className={`${isPage ? "text-sm" : "text-xs"} line-clamp-2`}>
+        {post.description}
+      </p>
+      <div className="flex flex-wrap gap-1">
+        {post.tags &&
+          post.tags.map((tag: string, tagIndex: number) => (
+            <span
+              key={tagIndex}
+              className={`${isPage ? "text-xs" : "text-[10px]"} px-2 py-0.5 font-medium border dark:border-white rounded-md`}
+            >
+              {tag}
+            </span>
+          ))}
+      </div>
+    </div>
+  ))}
+</div>
+
     </div>
   );
 };
