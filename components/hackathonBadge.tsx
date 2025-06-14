@@ -107,7 +107,9 @@ const HackathonBadge = ({ className = "" }) => {
           <div className="space-y-2">
             {/* Dynamically render achievement items */}
             {Array.isArray(achievements) && achievements.length > 0 ? (
-              achievements.map((achievement) => (
+              achievements
+  .filter((achievement) => achievement.id !== latestAchievement?.id)
+  .map((achievement) => (
                 <a
   key={achievement.id}
   href={achievement.achievement_url}
