@@ -94,6 +94,7 @@ export interface Membership {
 export interface BlogPost  {
   id: number; // Unique identifier for the blog post
   title: string; // The title of the blog post
+  slug: string; // A URL-friendly version of the title, used for routing
   date: string; // The date the blog post was published (use ISO format or Date object)
   read_time: string; // The estimated reading time (e.g., "3 min read")
   description: string; // A short description or excerpt of the blog post
