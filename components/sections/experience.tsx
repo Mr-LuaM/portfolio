@@ -1,14 +1,23 @@
 "use client";
-import { Experience } from "@/lib/types"; // Import Experience type
 
-const ExperienceSectionComponent = ({ experience }: { experience: Experience[] }) => {
-  // Sort experience by id in descending order (latest first)
+import { Experience } from "@/lib/types";
+
+const ExperienceSectionComponent = ({
+  experience,
+}: {
+  experience: Experience[];
+}) => {
   const sortedExperience = [...experience].sort((a, b) => b.id - a.id);
 
   return (
     <div>
       <div className="flex items-center gap-2">
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -22,50 +31,50 @@ const ExperienceSectionComponent = ({ experience }: { experience: Experience[] }
       <div className="relative space-y-4 mt-4">
         <div className="absolute left-1.5 top-1.5 bottom-2 w-px bg-border"></div>
 
-        {sortedExperience?.map((experience, index) => {
-          const isLatest = index === 0; // First item is the latest due to sorting
+        {sortedExperience.map((exp, index) => {
+          const isLatest = index === 0;
+          const startYear = new Date(exp.start_date).getFullYear();
+          const endYear = exp.end_date
+            ? new Date(exp.end_date).getFullYear()
+            : "Present";
 
           return (
-            <div key={experience.id} className="relative pl-6 group/role">
-              {/* Add glowing line segment for hover */}
-              <div className="absolute left-1.5 top-1.5 w-px h-full bg-foreground/20 opacity-0 group-hover/role:opacity-100 transition-opacity duration-300"></div>
+            <div key={exp.id} className="relative pl-6 group/role">
+              {/* Timeline vertical glow line */}
+              <div className="absolute left-1.5 top-1.5 w-px h-full bg-foreground/20 opacity-0 group-hover/role:opacity-100 transition-opacity duration-300" />
 
+              {/* Dot indicator */}
               <div
                 className={`absolute left-0 top-1.5 w-3 h-3 rounded-full border-2 transition-all duration-300 ${
                   isLatest
                     ? "border-foreground bg-foreground shadow-[0_0_0_4px_hsl(var(--foreground)/0.1)]"
                     : "border-border bg-background group-hover/role:bg-foreground group-hover/role:border-foreground group-hover/role:shadow-[0_0_0_4px_hsl(var(--foreground)/0.1)]"
                 }`}
-              ></div>
+              />
 
+              {/* Content */}
               <div className="space-y-1">
                 <h3
                   className={`text-sm font-semibold transition-colors ${
-                    isLatest ? "text-foreground" : "group-hover/role:text-foreground"
+                    isLatest
+                      ? "text-foreground"
+                      : "group-hover/role:text-foreground"
                   }`}
                 >
-                  {experience.role}
+                  {exp.role}
                 </h3>
 
-                <div className="flex items-center justify-between">
-                  <span
-                    className={`text-xs   ${
-                      isLatest ? " " : "group-hover/role: "
-                    }`}
-                  >
-                    {experience.company}
-                  </span>
+                <p className="text-xs">{exp.company}</p>
 
-                  <span
-                    className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full transition-colors ${
-                      isLatest
-                        ? "bg-foreground/10 border-foreground/20 border"
-                        : "bg-foreground/5 border border-foreground/10 group-hover/role:bg-foreground/10 group-hover/role:border-foreground/20"
-                    }`}
-                  >
-                    {new Date(experience.start_date).getFullYear()}
-                  </span>
-                </div>
+                <p
+                  className={`text-[10px] font-mono px-2 py-0.5 rounded-full w-fit transition-colors ${
+                    isLatest
+                      ? " border border-foreground/20 "
+                      : " border border-foreground/10 "
+                  }`}
+                >
+                  {startYear} {startYear !== endYear && ` – ${endYear}`}
+                </p>
               </div>
             </div>
           );
