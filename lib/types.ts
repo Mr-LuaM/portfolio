@@ -83,6 +83,7 @@ export interface Contact {
   email: string;
   linkedin_url: string;
   github_url: string;
+  facebook_url: string;
   other_links: Record<string, string>;
 }
 
