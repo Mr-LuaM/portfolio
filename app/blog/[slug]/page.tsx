@@ -18,18 +18,23 @@ export default function BlogPostPage() {
   const [copySuccess, setCopySuccess] = useState(false);
 
   useEffect(() => {
-    if (!slug) return;
+  if (!slug) return;
 
-    fetcher(`/blog_posts?slug=eq.${slug}`)
-      .then((res) => {
-        setPost(res?.[0] || null);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch blog post:", err);
-        setLoading(false);
-      });
-  }, [slug]);
+  fetcher(`/blog_posts?slug=eq.${slug}`)
+    .then((res) => {
+      if (Array.isArray(res) && res.length > 0 && res[0] !== null && typeof res[0] === "object") {
+        setPost(res[0] as BlogPost);
+      } else {
+        setPost(null);
+      }
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error("Failed to fetch blog post:", err);
+      setLoading(false);
+    });
+}, [slug]);
+
 
   const copyToClipboard = async (text: string) => {
     try {
