@@ -8,7 +8,7 @@ interface ProjectSectionProps {
   isProjectPage?: boolean; // Prop to determine if it's the full project page
 }
 
-const ProjectSection = ({ projects, limit = 3, isProjectPage = false }: ProjectSectionProps) => {
+const ProjectSection = ({ projects, limit = 4, isProjectPage = false }: ProjectSectionProps) => {
   // Helper function to extract domain from URL
   const getDomainFromUrl = (url: string) => {
     try {
