@@ -37,6 +37,7 @@ export interface Project {
   repo_url: string;
   image_url: string;
   date: string; // Date as string or Date object
+  access_type: string; // e.g., "public", "private", "internal"
 }
 
 

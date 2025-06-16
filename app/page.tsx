@@ -18,7 +18,12 @@ const HomePage = () => {
   const { data: profile, error: profileError, isLoading: profileLoading } = useSWR<Profile[]>("profile", fetcher);
   const { data: techStack, error: techStackError, isLoading: techStackLoading } = useSWR<Skill[]>("skills", fetcher);
   const { data: experience, error: experienceError, isLoading: experienceLoading } = useSWR<Experience[]>("experience", fetcher);
-  const { data: projects, error: projectsError, isLoading: projectsLoading } = useSWR<Project[]>("projects", fetcher);
+  const { data: projects, error: projectsError, isLoading: projectsLoading } = useSWR<Project[]>("projects", () => fetcher<Project>("projects", {
+    sort: [
+      { column: "date", ascending: false },
+      { column: "id", ascending: false },
+    ],
+  }));
   const { data: certifications, error: certificationsError, isLoading: certificationsLoading } = useSWR<Certification[]>("certifications", fetcher);
   const { data: testimonials, error: testimonialsError, isLoading: testimonialsLoading } = useSWR<Testimonial[]>("testimonials", fetcher);
   const { data: contact, error: contactError, isLoading: contactLoading } = useSWR<Contact[]>("contact", fetcher);

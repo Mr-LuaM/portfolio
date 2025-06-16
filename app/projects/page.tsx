@@ -8,8 +8,15 @@ import ProjectSection from "@/components/sections/project"; // Import ProjectSec
 
 export default function AllProjectsPage() {
   // Fetch projects using SWR
-  const { data: projects, error, isLoading } = useSWR<Project[]>("projects", fetcher);
-
+const { data: projects, error, isLoading } = useSWR<Project[]>(
+  "projects",
+  () => fetcher<Project>("projects", {
+    sort: [
+      { column: "date", ascending: false },
+      { column: "id", ascending: false },
+    ],
+  })
+);
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background p-6">
