@@ -1,24 +1,15 @@
 "use client";
-import { Project } from "@/lib/types"; // Import the Project type
+import { Project } from "@/lib/types";
 import Link from "next/link";
+import { ExternalLink, Github } from "lucide-react";
 
 interface ProjectSectionProps {
-  projects: Project[]; // Expecting the projects data to be passed as a prop
-  limit?: number; // Optional prop to limit the number of projects displayed
-  isProjectPage?: boolean; // Prop to determine if it's the full project page
+  projects: Project[];
+  limit?: number;
+  isProjectPage?: boolean;
 }
 
 const ProjectSection = ({ projects, limit = 4, isProjectPage = false }: ProjectSectionProps) => {
-  // Helper function to extract domain from URL
-  const getDomainFromUrl = (url: string) => {
-    try {
-      return new URL(url).hostname.replace("www.", "");
-    } catch {
-      return url;
-    }
-  };
-
-  // Slice the projects to the limit if we are not on the full page view
   const displayedProjects = isProjectPage ? projects : projects.slice(0, limit);
 
   return (
@@ -36,41 +27,61 @@ const ProjectSection = ({ projects, limit = 4, isProjectPage = false }: ProjectS
             </svg>
             <h2 className="text-lg font-bold">Recent Projects</h2>
           </div>
-          <Link
-  href="/projects"
-  className="text-xs flex items-center gap-1 animated-gradient-text"
->
-  View All
-  <span className="text-sm">➜</span> {/* This will inherit the gradient */}
-</Link>
-
+          <Link href="/projects" className="text-xs flex items-center gap-1 animated-gradient-text">
+            View All <span className="text-sm">➜</span>
+          </Link>
         </div>
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4">
-        {displayedProjects?.map((project) => (
-          <div
-            key={project.id}
-            className="border rounded-lg p-4 space-y-1 hover:-translate-y-0.5  transition-transform duration-200 dark:bg-neutral-900 "
-          >
-            <a target="_blank" rel="noopener noreferrer" className="block space-y-1" href={project.project_url}>
-             <h3 className={`font-semibold ${isProjectPage ? "text-lg" : "text-sm"}`}>
-  {project.name}
-</h3>
-<p className={isProjectPage ? "text-sm" : "text-xs"}>
-  {project.description}
-</p>
-<p
-  className={`font-mono bg-gray-100 dark:bg-black dark:text-white px-2 py-1 rounded-md inline-block mt-1 ${
-    isProjectPage ? "text-sm" : "text-xs"
-  } text-foreground/50`}
->
-  {getDomainFromUrl(project.project_url)}
-</p>
+        {displayedProjects?.map((project) => {
+          const showProjectLink = !!project.project_url;
+          const showRepoLink = !!project.repo_url;
 
-            </a>
-          </div>
-        ))}
+          return (
+            <div
+              key={project.id}
+              className="border rounded-lg p-4 space-y-2 hover:-translate-y-0.5 transition-transform duration-200 dark:bg-neutral-900"
+            >
+              <a
+                href={project.project_url || project.repo_url || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block space-y-1"
+              >
+                <h3 className={`font-semibold ${isProjectPage ? "text-lg" : "text-sm"}`}>
+                  {project.name}
+                </h3>
+                <p className={isProjectPage ? "text-sm" : "text-xs"}>{project.description}</p>
+              </a>
+
+              <div className="flex items-center gap-2 mt-1">
+                {showProjectLink && (
+                  <a
+                    href={project.project_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-600 dark:text-gray-300 hover:text-orange-500"
+                    title="View Live Project"
+                  >
+                    <ExternalLink size={16} />
+                  </a>
+                )}
+                {showRepoLink && (
+                  <a
+                    href={project.repo_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-600 dark:text-gray-300 hover:text-purple-500"
+                    title="View Source Code"
+                  >
+                    <Github size={16} />
+                  </a>
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
