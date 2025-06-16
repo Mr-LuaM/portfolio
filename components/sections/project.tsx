@@ -9,8 +9,14 @@ interface ProjectSectionProps {
   isProjectPage?: boolean;
 }
 
-const ProjectSection = ({ projects, limit = 4, isProjectPage = false }: ProjectSectionProps) => {
-  const displayedProjects = isProjectPage ? projects : projects.slice(0, limit);
+const ProjectSection = ({
+  projects,
+  limit = 4,
+  isProjectPage = false,
+}: ProjectSectionProps) => {
+  const displayedProjects = isProjectPage
+    ? projects
+    : projects.slice(0, limit);
 
   return (
     <div>
@@ -55,6 +61,21 @@ const ProjectSection = ({ projects, limit = 4, isProjectPage = false }: ProjectS
                 <p className={isProjectPage ? "text-sm" : "text-xs"}>{project.description}</p>
               </a>
 
+              {/* Technologies as badges */}
+              {project.technologies && (
+                <div className="flex flex-wrap gap-1.5">
+                  {project.technologies.split(",").map((tech) => (
+                    <span
+                      key={tech.trim()}
+                      className="px-2 py-0.5 text-xs rounded-md border border-foreground/10 dark:border-white"
+                    >
+                      {tech.trim()}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {/* Links */}
               <div className="flex items-center gap-2 mt-1">
                 {showProjectLink && (
                   <a
