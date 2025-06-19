@@ -8,7 +8,7 @@ import HackathonBadge from "../hackathonBadge";
 // Accept profileData as props
 const ProfileSectionComponent = ({ profileData }: { profileData: Profile }) => {
   return (
-    <section className="mb-8 animate-fade-in">
+    <div className="mb-8 ">
       <div className="flex items-center gap-4 md:gap-6">
         {/* Profile Image */}
         <Image
@@ -62,7 +62,7 @@ const ProfileSectionComponent = ({ profileData }: { profileData: Profile }) => {
       <div className="md:hidden mt-6">
         <HackathonBadge />
       </div>
-    </section>
+    </div>
   );
 };
 

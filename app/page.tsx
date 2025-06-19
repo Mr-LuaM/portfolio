@@ -56,42 +56,44 @@ const HomePage = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       {/* Pass the fetched data as props */}
+      <div className="">
       <ProfileSection profileData={profileData} />
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-6 gap-2">
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 opacity-0 group animate-fade-in z-[-1]">
+        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 opacity-0 group animate-fade-in">
           <AboutSection profileData={profileData} />
         </div>
 
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 md:row-span-2 space-y-2 opacity-0 group animate-fade-in delay-200 z-[-1]">
+        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 md:row-span-2 space-y-2 opacity-0 group animate-fade-in delay-200">
           <ExperienceSection experience={experience}/>
         </div>
 
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 opacity-0 group animate-fade-in delay-300 z-[-1]">
+        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 opacity-0 group animate-fade-in delay-300">
           <TechStackSection techStack={techStack} limit={3} />
         </div>
 
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 space-y-2 opacity-0 group animate-fade-in delay-300 z-[-1]">
+        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 space-y-2 opacity-0 group animate-fade-in delay-300">
           <HobbySection hobby={profileData?.hobby ?? []} />
         </div>
 
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 opacity-0 group animate-fade-in delay-300 z-[-1]">
+        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 opacity-0 group animate-fade-in delay-300">
           <ProjectSection projects={projects} />
         </div>
 
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-3 space-y-2 opacity-0 group animate-fade-in delay-400 z-[-1]">
+        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-3 space-y-2 opacity-0 group animate-fade-in delay-400">
           <CertificationSection certifications={certifications} />
         </div>
 
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-3 space-y-2 opacity-0 group overflow-hidden animate-fade-in delay-400 z-[-1]">
+        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-3 space-y-2 opacity-0 group overflow-hidden animate-fade-in delay-400">
           <TestimonialSection testimonials={testimonials} />
         </div>
 
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 space-y-3 opacity-0 group animate-fade-in delay-500 z-[-1]">
+        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 space-y-3 opacity-0 group animate-fade-in delay-500">
           <ContactSection contact={contact[0]} memberships={membership} />
         </div>
 
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 opacity-0 group animate-fade-in delay-500 z-[-1]">
+        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 opacity-0 group animate-fade-in delay-500">
           <BlogPostSection blogPosts={blogPosts} limit={2}/>
         </div>
       </div>
