@@ -104,3 +104,14 @@ export interface BlogPost  {
   tags: string[]; // An array of tags related to the blog post
   created_at: string; // Timestamp of when the post was created
 }
+
+export type ExperienceAchievement = {
+  id: number;
+  experience_id: number;
+  achievement_id: number;
+  achievements: Achievement;
+};
+
+export type ExperienceWithAchievements = Experience & {
+  experience_achievements: ExperienceAchievement[];
+};

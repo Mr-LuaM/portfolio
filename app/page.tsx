@@ -11,13 +11,25 @@ import CertificationSection from "@/components/sections/certification";
 import TestimonialSection from "@/components/sections/testimonial";
 import ContactSection from "@/components/sections/contact";
 import BlogPostSection from "@/components/sections/blog";
-import { Skill, Testimonial, Profile, BlogPost, Experience, Project, Certification, Contact, Membership } from "@/lib/types"; // Import necessary types
+import { Skill, Testimonial, Profile, BlogPost, Project, Certification, Contact, Membership, ExperienceWithAchievements } from "@/lib/types"; // Import necessary types
 
 const HomePage = () => {
   // Fetch data with SWR and cache it
   const { data: profile, error: profileError, isLoading: profileLoading } = useSWR<Profile[]>("profile", fetcher);
   const { data: techStack, error: techStackError, isLoading: techStackLoading } = useSWR<Skill[]>("skills", fetcher);
-  const { data: experience, error: experienceError, isLoading: experienceLoading } = useSWR<Experience[]>("experience", fetcher);
+  const { data: experience, error: experienceError, isLoading: experienceLoading } = useSWR<ExperienceWithAchievements[]>(
+    "experience",
+    (key: string) =>
+      fetcher<ExperienceWithAchievements>(key, {
+        relations: `
+          *,
+          experience_achievements (
+            *,
+            achievements(*)
+          )
+        `
+      })
+  );
   const { data: projects, error: projectsError, isLoading: projectsLoading } = useSWR<Project[]>("projects", () => fetcher<Project>("projects", {
     sort: [
       { column: "date", ascending: false },

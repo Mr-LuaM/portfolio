@@ -1,11 +1,11 @@
 "use client";
 
-import { Experience } from "@/lib/types";
+import {ExperienceWithAchievements } from "@/lib/types";
 
 const ExperienceSectionComponent = ({
   experience,
 }: {
-  experience: Experience[];
+  experience: ExperienceWithAchievements[];
 }) => {
   const sortedExperience = [...experience].sort((a, b) => b.id - a.id);
 
@@ -75,6 +75,23 @@ const ExperienceSectionComponent = ({
                 >
                   {startYear} {startYear !== endYear && ` – ${endYear}`}
                 </p>
+                {/* ACHIEVEMENTS */}
+                {exp.experience_achievements.length > 0 && (
+                    <div className="mt-1 ">
+                      {exp.experience_achievements.map((ea) => (
+                        <p key={ea.id} className="leading-tight">
+                          <a
+                            href={ea.achievements.achievement_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[10px] animated-gradient-text"
+                          >
+                            {ea.achievements.name}
+                          </a>
+                        </p>
+                      ))}
+                    </div>
+                  )}
               </div>
             </div>
           );
