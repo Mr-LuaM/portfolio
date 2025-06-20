@@ -1,11 +1,29 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import useSWR from "swr"; // Import SWR for caching
 import { fetcher } from "../lib/fetcher"; // Fetch helper function from your lib
 import { Achievement } from "@/lib/types"; // Import Achievement type
 
 const HackathonBadge = ({ className = "" }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+useEffect(() => {
+  const handleClickOutside = (event: MouseEvent) => {
+    if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      setIsOpen(false);
+    }
+  };
+
+  if (isOpen) {
+    document.addEventListener("mousedown", handleClickOutside);
+  } else {
+    document.removeEventListener("mousedown", handleClickOutside);
+  }
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, [isOpen]);
 
   // Use SWR for data fetching and caching
   const { data: achievements, error, isLoading } = useSWR<Achievement[]>(
@@ -32,7 +50,7 @@ const HackathonBadge = ({ className = "" }) => {
   }
 
   return (
-    <div className={`relative w-full md:w-auto ${className}`}>
+    <div ref={containerRef} className={`relative w-full md:w-auto ${className}`}>
       {/* Main Badge */}
       <div
         className="flex items-center hackathon-badge rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer w-full md:w-auto"
