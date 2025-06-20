@@ -34,7 +34,7 @@ const ProjectSection = ({ projects, limit = 2, isProjectPage = false }: ProjectS
         </div>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4 auto-rows-fr">
         {displayedProjects?.map((project, index) => {
           const { id, name, description, project_url, repo_url, technologies, access_type } = project;
           const techStack = technologies?.split(",").map((tech) => tech.trim()) || [];
@@ -50,7 +50,7 @@ className={isProjectPage ? "animate-fade-in opacity-0" : ""}
               >
             <div
              
-              className="border rounded-lg p-4 hover:-translate-y-0.5 transition-transform duration-200 dark:bg-neutral-900 space-y-2"
+              className="h-full flex flex-col justify-between border rounded-lg p-4 hover:-translate-y-0.5 transition-transform duration-200 dark:bg-neutral-900 space-y-2"
             >
              
                 <a
