@@ -17,7 +17,7 @@ const ProfileSectionComponent = ({ profileData }: { profileData: Profile }) => {
           width={160}
           height={160}
           className="rounded-lg w-32 h-32 md:w-40 md:h-40 object-cover flex-shrink-0"
-          loading="lazy"
+          priority 
         />
         {/* Profile Info */}
         <div className="flex-1 min-w-0">

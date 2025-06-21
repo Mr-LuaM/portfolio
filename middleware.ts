@@ -7,7 +7,7 @@ export async function middleware(request: NextRequest) {
 
   // Define public paths and prefix patterns
   const publicPages = ["/tech-stack", "/projects", "/certifications"];
-  const publicPathPrefixes = ["/blog"];
+  const publicPathPrefixes = ["/blog", "/manifest"];
 
   // Allow if it's an exact match
   if (publicPages.includes(pathname)) {
@@ -25,6 +25,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",  // Exclude static files
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
