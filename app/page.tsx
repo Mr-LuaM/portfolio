@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import useSWR from "swr"; // Import SWR
 import { fetcher } from "@/lib/fetcher"; // The fetcher function we just created
 import ProfileSection from "@/components/sections/profile";
@@ -12,8 +13,11 @@ import TestimonialSection from "@/components/sections/testimonial";
 import ContactSection from "@/components/sections/contact";
 import BlogPostSection from "@/components/sections/blog";
 import { Skill, Testimonial, Profile, BlogPost, Project, Certification, Contact, Membership, ExperienceWithAchievements } from "@/lib/types"; // Import necessary types
+import SnakeGame from "@/components/snakeGame";
 
 const HomePage = () => {
+  const [isGameOpen, setIsGameOpen] = useState(false);
+  
   // Fetch data with SWR and cache it
   const { data: profile, error: profileError, isLoading: profileLoading } = useSWR<Profile[]>("profile", fetcher);
   const { data: techStack, error: techStackError, isLoading: techStackLoading } = useSWR<Skill[]>("skills", fetcher);
@@ -66,49 +70,53 @@ const HomePage = () => {
   const profileData = profile[0];
 
   return (
+    
     <div className="max-w-4xl mx-auto px-4 py-8">
-      {/* Pass the fetched data as props */}
-      <div className="">
-      <ProfileSection profileData={profileData} />
+      {isGameOpen ? (
+            <SnakeGame key="game" onExit={() => setIsGameOpen(false)} />
+        ) : (
+      <div >
+        <ProfileSection profileData={profileData} isGameOpen={isGameOpen} toggleGame={() => setIsGameOpen(!isGameOpen)} />
+
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-2">
+          <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 opacity-0 group animate-fade-in">
+            <AboutSection profileData={profileData} />
+          </div>
+
+          <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 md:row-span-2 space-y-2 opacity-0 group animate-fade-in delay-200">
+            <ExperienceSection experience={experience}/>
+          </div>
+
+          <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 opacity-0 group animate-fade-in delay-300">
+            <TechStackSection techStack={techStack} limit={3} />
+          </div>
+
+          <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 space-y-2 opacity-0 group animate-fade-in delay-300">
+            <HobbySection hobby={profileData?.hobby ?? []} />
+          </div>
+
+          <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 opacity-0 group animate-fade-in delay-300">
+            <ProjectSection projects={projects} />
+          </div>
+
+          <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-3 space-y-2 opacity-0 group animate-fade-in delay-400">
+            <CertificationSection certifications={certifications} />
+          </div>
+
+          <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-3 space-y-2 opacity-0 group overflow-hidden animate-fade-in delay-400">
+            <TestimonialSection testimonials={testimonials} />
+          </div>
+
+          <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 space-y-3 opacity-0 group animate-fade-in delay-500">
+            <ContactSection contact={contact[0]} memberships={membership} />
+          </div>
+
+          <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 opacity-0 group animate-fade-in delay-500">
+            <BlogPostSection blogPosts={blogPosts} limit={2}/>
+          </div>
+        </div>
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-6 gap-2">
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 opacity-0 group animate-fade-in">
-          <AboutSection profileData={profileData} />
-        </div>
-
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 md:row-span-2 space-y-2 opacity-0 group animate-fade-in delay-200">
-          <ExperienceSection experience={experience}/>
-        </div>
-
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 opacity-0 group animate-fade-in delay-300">
-          <TechStackSection techStack={techStack} limit={3} />
-        </div>
-
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 space-y-2 opacity-0 group animate-fade-in delay-300">
-          <HobbySection hobby={profileData?.hobby ?? []} />
-        </div>
-
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 opacity-0 group animate-fade-in delay-300">
-          <ProjectSection projects={projects} />
-        </div>
-
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-3 space-y-2 opacity-0 group animate-fade-in delay-400">
-          <CertificationSection certifications={certifications} />
-        </div>
-
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-3 space-y-2 opacity-0 group overflow-hidden animate-fade-in delay-400">
-          <TestimonialSection testimonials={testimonials} />
-        </div>
-
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-2 space-y-3 opacity-0 group animate-fade-in delay-500">
-          <ContactSection contact={contact[0]} memberships={membership} />
-        </div>
-
-        <div className="border dark:bg-neutral-900 rounded-lg p-4 col-span-1 md:col-span-4 space-y-2 opacity-0 group animate-fade-in delay-500">
-          <BlogPostSection blogPosts={blogPosts} limit={2}/>
-        </div>
-      </div>
+       )}
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import Footer from "@/components/sections/footer";
+import Head from "next/head";
 
 // Dynamically resolve URL for different environments
 const defaultUrl = process.env.VERCEL_URL
@@ -74,7 +75,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
+      <Head>
         {/* PWA Manifest */}
         <link rel="manifest" href="/manifest.json" />
 
@@ -94,7 +95,7 @@ export default function RootLayout({
 
         {/* Viewport Fallback */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-      </head>
+      </Head>
       <body className={`${geistSans.className} antialiased min-h-screen flex flex-col`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <main className="grow">{children}</main>
