@@ -520,7 +520,7 @@ export default function SnakeGame() {
     <div
       ref={gameContainerRef}
       tabIndex={0}
-      className="min-h-screen bg-background p-2 sm:p-4 outline-none transition-colors duration-300"
+      className="bg-background p-2 sm:p-4 outline-none transition-colors duration-300"
     >
       <motion.div variants={cardVariants} initial="initial" animate="animate" exit="exit">
         <Card className="w-full max-w-lg sm:max-w-2xl mx-auto shadow-lg hover:shadow-xl transition-shadow duration-300">
