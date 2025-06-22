@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge"
 import { Play, RotateCcw, Trophy, Gamepad2, ArrowLeft, Pause, Volume2, VolumeX, Sun, Moon } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useTheme } from "next-themes";
+import Link from "next/link"
+
 
 // Game constants
 const CANVAS_SIZE = 400
@@ -54,11 +56,7 @@ const checkCollision = (head: Position, snake: Position[]): boolean => {
   return snake.some((segment) => segment.x === head.x && segment.y === head.y)
 }
 
-interface SnakeGameProps {
-  onExit: () => void
-}
-
-export default function SnakeGame({ onExit }: SnakeGameProps) {
+export default function SnakeGame() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const gameLoopRef = useRef<NodeJS.Timeout | null>(null)
   const gameContainerRef = useRef<HTMLDivElement>(null)
@@ -83,32 +81,12 @@ export default function SnakeGame({ onExit }: SnakeGameProps) {
   // Handle keyboard input
   const handleKeyPress = useCallback(
     (e: KeyboardEvent) => {
-      const gameKeys = [
-        "ArrowUp",
-        "ArrowDown",
-        "ArrowLeft",
-        "ArrowRight",
-        "w",
-        "W",
-        "a",
-        "A",
-        "s",
-        "S",
-        "d",
-        "D",
-        " ",
-        "Escape",
-      ]
+      const gameKeys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "w", "W", "a", "A", "s", "S", "d", "D", " "]
 
       if (!gameKeys.includes(e.key)) return
 
       e.preventDefault()
       e.stopPropagation()
-
-      if (e.key === "Escape") {
-        onExit()
-        return
-      }
 
       if (e.key === " ") {
         if (gameState.gameStarted && !gameState.gameOver) {
@@ -150,7 +128,7 @@ export default function SnakeGame({ onExit }: SnakeGameProps) {
         return { ...prev, direction: newDirection }
       })
     },
-    [gameState.gameStarted, gameState.gameOver, gameState.isPaused, onExit],
+    [gameState.gameStarted, gameState.gameOver, gameState.isPaused],
   )
 
   // Game loop
@@ -397,10 +375,12 @@ export default function SnakeGame({ onExit }: SnakeGameProps) {
                 </motion.div>
 
                 <motion.div whileHover={{ scale: 1.05, x: -2 }} whileTap={{ scale: 0.95 }}>
-                  <Button variant="outline" size="sm" onClick={onExit} className="flex items-center gap-2">
-                    <ArrowLeft className="w-4 h-4" />
-                    <span className="hidden sm:inline">Back</span>
-                  </Button>
+                  <Link href="/">
+                    <Button variant="outline" size="sm" className="flex items-center gap-2">
+                      <ArrowLeft className="w-4 h-4" />
+                      <span className="hidden sm:inline">Back</span>
+                    </Button>
+                  </Link>
                 </motion.div>
               </div>
             </motion.div>
@@ -606,11 +586,10 @@ export default function SnakeGame({ onExit }: SnakeGameProps) {
               className="bg-muted/50 rounded-lg p-4 hover:bg-muted/70 transition-colors duration-200"
             >
               <h4 className="text-sm font-semibold text-center mb-3">Controls</h4>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center text-sm">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center text-sm">
                 {[
                   { label: "Movement", keys: ["↑↓←→", "WASD"] },
                   { label: "Pause", keys: ["Space"] },
-                  { label: "Exit", keys: ["Esc"] },
                 ].map((control, index) => (
                   <motion.div
                     key={control.label}
