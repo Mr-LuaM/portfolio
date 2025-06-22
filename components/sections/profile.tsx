@@ -24,8 +24,10 @@ const ProfileSectionComponent = ({ profileData }: { profileData: Profile }) => {
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2">
             <h1 className="text-lg md:text-2xl font-bold truncate">{profileData?.name || "Mark Lua"}</h1>
-            <SnakeToggleButton/>
-            <ThemeSwitcher />
+             <div className="flex items-center gap-2">
+    <SnakeToggleButton />
+    <ThemeSwitcher />
+  </div>
           </div>
           {/* Location and Bio */}
           <p className="text-xs md:text-sm   mt-0.5 flex items-center gap-1">
@@ -54,7 +56,7 @@ const ProfileSectionComponent = ({ profileData }: { profileData: Profile }) => {
             {profileData?.title || "Software Developer"}
           </p>
           {/* Action Buttons */}
-          <div className="mt-4 flex gap-6 justify-start md:justify-start flex-col md:flex-row">
+          <div className="mt-4 flex gap-2 justify-start md:justify-start flex-col md:flex-row">
             <ActionButtons />
             <HackathonBadge className="md:block hidden" />
           </div>
