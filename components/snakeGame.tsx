@@ -20,8 +20,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react"
-import { motion, AnimatePresence, } from "framer-motion"
-
+import { motion, AnimatePresence } from "framer-motion"
 import { useTheme } from "next-themes"
 import { useRouter } from "next/navigation"
 
@@ -371,14 +370,15 @@ export default function SnakeGame() {
     handleFocus()
     document.addEventListener("keydown", handleKeyPress, { capture: true })
 
-    if (gameContainerRef.current) {
-      gameContainerRef.current.addEventListener("click", handleFocus)
+    const containerNode = gameContainerRef.current
+    if (containerNode) {
+      containerNode.addEventListener("click", handleFocus)
     }
 
     return () => {
       document.removeEventListener("keydown", handleKeyPress, { capture: true })
-      if (gameContainerRef.current) {
-        gameContainerRef.current.removeEventListener("click", handleFocus)
+      if (containerNode) {
+        containerNode.removeEventListener("click", handleFocus)
       }
     }
   }, [handleKeyPress])
@@ -460,19 +460,15 @@ export default function SnakeGame() {
 
   // Animation variants for individual components
   const cardVariants = {
-  initial: { opacity: 0, scale: 0.9, y: 100 },
-  animate: {
-    opacity: isExiting ? 0 : 1,
-    scale: isExiting ? 0.9 : 1,
-    y: isExiting ? -100 : 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeInOut", // ✅ Fixed here
+    initial: { opacity: 0, scale: 0.9, y: 100 },
+    animate: {
+      opacity: isExiting ? 0 : 1,
+      scale: isExiting ? 0.9 : 1,
+      y: isExiting ? -100 : 0,
+      transition: { duration: 0.6},
     },
-  },
-  exit: { opacity: 0, scale: 0.9, y: -100 },
-}
-
+    exit: { opacity: 0, scale: 0.9, y: -100 },
+  }
 
   const headerVariants = {
     initial: { y: 50, opacity: 0 },
@@ -524,7 +520,7 @@ export default function SnakeGame() {
     <div
       ref={gameContainerRef}
       tabIndex={0}
-      className="min-h-screen bg-background flex items-center justify-center p-2 sm:p-4 outline-none transition-colors duration-300"
+      className="min-h-screen bg-background p-2 sm:p-4 outline-none transition-colors duration-300"
     >
       <motion.div variants={cardVariants} initial="initial" animate="animate" exit="exit">
         <Card className="w-full max-w-lg sm:max-w-2xl mx-auto shadow-lg hover:shadow-xl transition-shadow duration-300">
