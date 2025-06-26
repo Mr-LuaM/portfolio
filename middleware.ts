@@ -7,7 +7,7 @@ export async function middleware(request: NextRequest) {
 
   // Define public paths and prefix patterns
   const publicPages = ["/tech-stack", "/projects", "/certifications", "/snake"];
-  const publicPathPrefixes = ["/blog", "/manifest"];
+  const publicPathPrefixes = ["/blog", "/manifest,", "/Lua_Resume_v2.pdf"];
 
   // Allow if it's an exact match
   if (publicPages.includes(pathname)) {

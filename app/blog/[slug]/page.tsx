@@ -1,40 +1,30 @@
 "use client";
 
 import Link from "next/link";
+import useSWR from "swr";
 import { useParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ArrowLeft, LinkIcon } from "lucide-react";
 import { fetcher } from "@/lib/fetcher";
 import { BlogPost } from "@/lib/types";
 
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
-import "highlight.js/styles/github-dark.css"; // You can use other styles
+import "highlight.js/styles/github-dark.css";
 
 export default function BlogPostPage() {
-  const { slug } = useParams();
-  const [post, setPost] = useState<BlogPost | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { slug } = useParams() as { slug?: string };
   const [copySuccess, setCopySuccess] = useState(false);
 
-  useEffect(() => {
-  if (!slug) return;
+  const { data, error, isLoading } = useSWR(
+    slug ? `/blog_posts?slug=eq.${slug}` : null,
+    fetcher
+  );
 
-  fetcher(`/blog_posts?slug=eq.${slug}`)
-    .then((res) => {
-      if (Array.isArray(res) && res.length > 0 && res[0] !== null && typeof res[0] === "object") {
-        setPost(res[0] as BlogPost);
-      } else {
-        setPost(null);
-      }
-      setLoading(false);
-    })
-    .catch((err) => {
-      console.error("Failed to fetch blog post:", err);
-      setLoading(false);
-    });
-}, [slug]);
-
+  const post: BlogPost | null =
+    Array.isArray(data) && data.length > 0 && typeof data[0] === "object"
+      ? (data[0] as BlogPost)
+      : null;
 
   const copyToClipboard = async (text: string) => {
     try {
@@ -50,11 +40,11 @@ export default function BlogPostPage() {
     await copyToClipboard(window.location.href);
   };
 
-  if (loading) {
+  if (isLoading) {
     return <div className="p-6">Loading...</div>;
   }
 
-  if (!post) {
+  if (error || !post) {
     return <div className="p-6">Post not found.</div>;
   }
 
