@@ -2,7 +2,16 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['avatars.githubusercontent.com',"mr-luam.s3.ap-southeast-2.amazonaws.com"],  // Add the domain of the external image source
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'mr-luam.s3.ap-southeast-2.amazonaws.com',
+      },
+    ],
   },
 };
 

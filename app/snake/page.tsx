@@ -1,4 +1,4 @@
-import SnakeGame from "@/components/snakeGame";
+import SnakeGame from "@/components/snake/snakeGame";
 
 export default function SnakePage() {
   return (
