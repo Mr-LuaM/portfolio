@@ -1,10 +1,10 @@
 "use client";
 import { Profile } from "../../lib/types"; // Import the Profile type
-import Image from "next/image"; // Import the next/image component
 import { ThemeSwitcher } from "../theme-switcher";
 import ActionButtons from "../actionButtons";
 import HackathonBadge from "../hackathonBadge";
 import SnakeToggleButton from "../snakeToggleButton";
+import AnimatedProfileCard from "../animatedProfileCard";
 
 // Accept profileData as props
 const ProfileSectionComponent = ({ profileData }: { profileData: Profile }) => {
@@ -12,13 +12,20 @@ const ProfileSectionComponent = ({ profileData }: { profileData: Profile }) => {
     <section className="mb-8 ">
       <div className="flex items-center gap-4 md:gap-6">
         {/* Profile Image */}
-        <Image
+        {/* <Image
           src={profileData?.image_url || "https://avatars.githubusercontent.com/u/130156447?v=4"} // Fallback image if profile image is unavailable
           alt={profileData?.name || "Profile Image"}
           width={160}
           height={160}
           className="rounded-lg w-32 h-32 md:w-40 md:h-40 object-cover flex-shrink-0"
           priority 
+        /> */}
+         {/* Clean Animated Profile Card */}
+        <AnimatedProfileCard
+          profileData={profileData}
+          width={160}
+          height={160}
+          className="w-32 h-32 md:w-40 md:h-40 flex-shrink-0"
         />
         {/* Profile Info */}
         <div className="flex-1 min-w-0">

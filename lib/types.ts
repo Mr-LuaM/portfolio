@@ -11,6 +11,7 @@ export interface Profile {
   github_url: string;
   location: string;
   hobby: string;
+  evo_image_url?: string; // Optional, for the animated profile card
 }
 
 export interface Hobby{
