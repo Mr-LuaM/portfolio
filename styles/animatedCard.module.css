@@ -430,8 +430,8 @@
 
 /* CHARACTER IMAGE - ULTRA FAST */
 .characterImage {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0;
   object-fit: cover;
   border-radius: 16px; /* Matches card border radius */
   transition: filter 0.5s ease-out;

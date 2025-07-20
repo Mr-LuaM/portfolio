@@ -7,15 +7,11 @@ import styles from "../styles/animatedCard.module.css"
 
 interface AnimatedProfileCardProps {
   profileData: Profile
-  width?: number
-  height?: number
   className?: string
 }
 
 const AnimatedProfileCard = ({
   profileData,
-  width = 160,
-  height = 160,
   className = "",
 }: AnimatedProfileCardProps) => {
   const [isTransformed, setIsTransformed] = useState(false)
@@ -56,7 +52,6 @@ const AnimatedProfileCard = ({
   return (
     <div
       className={`${styles.cardContainer} ${className}`}
-      style={{ width: `${width}px`, height: `${height}px` }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -102,8 +97,8 @@ const AnimatedProfileCard = ({
               : profileData?.image_url || "https://avatars.githubusercontent.com/u/130156447?v=4"
           }
           alt={profileData?.name || "Profile Image"}
-          width={width}
-          height={height}
+          fill
+          sizes="(max-width: 768px) 128px, 160px"
           className={styles.characterImage}
           priority
         />
