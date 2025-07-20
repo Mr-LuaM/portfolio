@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import type { Profile } from "../lib/types"
 import styles from "../styles/animatedCard.module.css"
 
@@ -20,12 +20,37 @@ const AnimatedProfileCard = ({
 }: AnimatedProfileCardProps) => {
   const [isTransformed, setIsTransformed] = useState(false)
 
+  const audioRef = useRef<HTMLAudioElement>(null)
+  const hasPlayedSound = useRef(false)
+
   const handleMouseEnter = () => {
+    // Reset sound flag for new hover
+    hasPlayedSound.current = false
+
+    // Trigger image transformation after 3.2s
     setTimeout(() => setIsTransformed(true), 3200)
+
+    // Play sound effect after merge completes (3.2s)
+    setTimeout(() => {
+      if (!hasPlayedSound.current && audioRef.current) {
+        audioRef.current.currentTime = 0 // Reset to beginning
+        audioRef.current.play().catch((error) => {
+          console.log("Audio play failed:", error)
+        })
+        hasPlayedSound.current = true
+      }
+    }, 3200)
   }
 
   const handleMouseLeave = () => {
     setIsTransformed(false)
+    hasPlayedSound.current = false
+
+    // Stop audio if it's playing
+    if (audioRef.current) {
+      audioRef.current.pause()
+      audioRef.current.currentTime = 0
+    }
   }
 
   return (
@@ -35,6 +60,16 @@ const AnimatedProfileCard = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
+      {/* Audio element for wizard evolution sound */}
+      <audio ref={audioRef}  style={{ display: "none" }}>
+        <source
+          src={profileData.audioBaseUrl || 'https://mr-luam.s3.ap-southeast-2.amazonaws.com/mp3/Wizard+Evolution+Deploy+Sound+Effect.mp3'}
+          type="audio/mpeg"
+          
+        />
+        Your browser does not support the audio element.
+      </audio>
+      
       {/* Card glow effects */}
       <div className={styles.cardGlow}></div>
       <div className={styles.cardGlowInner}></div>

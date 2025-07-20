@@ -20,7 +20,7 @@ const ProfileSectionComponent = ({ profileData }: { profileData: Profile }) => {
           className="rounded-lg w-32 h-32 md:w-40 md:h-40 object-cover flex-shrink-0"
           priority 
         /> */}
-         {/* Clean Animated Profile Card */}
+        {/* Animated Profile Card with Sound */}
         <AnimatedProfileCard
           profileData={profileData}
           width={160}

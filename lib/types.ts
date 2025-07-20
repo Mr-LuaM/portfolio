@@ -12,6 +12,7 @@ export interface Profile {
   location: string;
   hobby: string;
   evo_image_url?: string; // Optional, for the animated profile card
+  audioBaseUrl?:string;
 }
 
 export interface Hobby{
