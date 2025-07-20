@@ -27,13 +27,13 @@
   opacity: 0;
 }
 
-/* Card glow animation - ONLY after merge - FASTER */
+/* Card glow animation - ULTRA FAST */
 .cardContainer:hover .cardGlow {
-  animation: activateCardGlow 0.4s ease-out 1.5s forwards;
+  animation: activateCardGlow 0.2s ease-out 0.6s forwards;
 }
 
 .cardContainer:hover .cardGlowInner {
-  animation: activateCardGlowInner 0.4s ease-out 1.5s forwards;
+  animation: activateCardGlowInner 0.2s ease-out 0.6s forwards;
 }
 
 @keyframes activateCardGlow {
@@ -60,9 +60,9 @@
   box-shadow: none; /* No shadow initially */
 }
 
-/* Background transformation - FASTER */
+/* Background transformation - ULTRA FAST */
 .cardContainer:hover .cardMain {
-  animation: transformBackground 0.4s ease-out 0.1s forwards, activateCardMain 0.4s ease-out 1.5s forwards;
+  animation: transformBackground 0.2s ease-out 0.05s forwards, activateCardMain 0.2s ease-out 0.6s forwards;
 }
 
 @keyframes transformBackground {
@@ -248,13 +248,13 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* DIAMOND - FASTER activation */
+/* DIAMOND - ULTRA FAST activation */
 .cardContainer:hover .gemContainer {
-  animation: gemAppear 0.2s ease-out forwards, gemActivate 0.3s ease-out 0.1s forwards;
+  animation: gemAppear 0.1s ease-out forwards, gemActivate 0.15s ease-out 0.05s forwards;
 }
 
 .cardContainer:hover .gem {
-  animation: gemGlow 0.3s ease-out 0.1s forwards;
+  animation: gemGlow 0.15s ease-out 0.05s forwards;
 }
 
 @keyframes gemAppear {
@@ -295,50 +295,50 @@
   border-radius: 2px;
 }
 
-/* FLOWING SNAKE ANIMATION - MUCH FASTER */
+/* FLOWING SNAKE ANIMATION - ULTRA FAST */
 .cardContainer:hover .borderLine {
   opacity: 1;
 }
 
 .cardContainer:hover .borderLineTop {
-  animation: drawTop 0.4s ease-out 0.3s forwards, addGlow 0.3s ease-out 1.6s forwards;
+  animation: drawTop 0.2s ease-out 0.15s forwards, addGlow 0.15s ease-out 0.7s forwards;
 }
 
 .cardContainer:hover .borderLineLeft {
-  animation: drawLeft 0.6s ease-out 0.6s forwards, addGlow 0.3s ease-out 1.6s forwards;
+  animation: drawLeft 0.25s ease-out 0.3s forwards, addGlow 0.15s ease-out 0.7s forwards;
 }
 
 .cardContainer:hover .borderLineRight {
-  animation: drawRight 0.6s ease-out 0.6s forwards, addGlow 0.3s ease-out 1.6s forwards;
+  animation: drawRight 0.25s ease-out 0.3s forwards, addGlow 0.15s ease-out 0.7s forwards;
 }
 
 .cardContainer:hover .borderLineBottomLeft {
-  animation: drawBottomLeft 0.3s ease-out 1.1s forwards, addGlow 0.3s ease-out 1.6s forwards;
+  animation: drawBottomLeft 0.15s ease-out 0.5s forwards, addGlow 0.15s ease-out 0.7s forwards;
 }
 
 .cardContainer:hover .borderLineBottomRight {
-  animation: drawBottomRight 0.3s ease-out 1.1s forwards, addGlow 0.3s ease-out 1.6s forwards;
+  animation: drawBottomRight 0.15s ease-out 0.5s forwards, addGlow 0.15s ease-out 0.7s forwards;
 }
 
-/* FLOWING LIGHTS - START EARLIER */
+/* FLOWING LIGHTS - START IMMEDIATELY */
 .cardContainer:hover .borderLineTop .borderLight {
-  animation: flowLightHorizontal 1.5s linear 2s infinite;
+  animation: flowLightHorizontal 1s linear 0.8s infinite;
 }
 
 .cardContainer:hover .borderLineLeft .borderLight {
-  animation: flowLightVertical 1.5s linear 2.1s infinite;
+  animation: flowLightVertical 1s linear 0.85s infinite;
 }
 
 .cardContainer:hover .borderLineRight .borderLight {
-  animation: flowLightVertical 1.5s linear 2.2s infinite;
+  animation: flowLightVertical 1s linear 0.9s infinite;
 }
 
 .cardContainer:hover .borderLineBottomLeft .borderLight {
-  animation: flowLightHorizontal 1.5s linear 2.3s infinite;
+  animation: flowLightHorizontal 1s linear 0.95s infinite;
 }
 
 .cardContainer:hover .borderLineBottomRight .borderLight {
-  animation: flowLightHorizontalReverse 1.5s linear 2.4s infinite;
+  animation: flowLightHorizontalReverse 1s linear 1s infinite;
 }
 
 @keyframes drawTop {
@@ -428,7 +428,7 @@
   }
 }
 
-/* CHARACTER IMAGE - FASTER */
+/* CHARACTER IMAGE - ULTRA FAST */
 .characterImage {
   width: 100%;
   height: 100%;
@@ -438,7 +438,7 @@
 }
 
 .cardContainer:hover .characterImage {
-  animation: enhanceImage 0.3s ease-out 1.5s forwards;
+  animation: enhanceImage 0.15s ease-out 0.6s forwards;
 }
 
 @keyframes enhanceImage {
@@ -451,7 +451,7 @@
   }
 }
 
-/* CARD OVERLAY - FASTER */
+/* CARD OVERLAY - ULTRA FAST */
 .cardOverlay {
   position: absolute;
   inset: 0;
@@ -460,7 +460,7 @@
 }
 
 .cardContainer:hover .cardOverlay {
-  animation: activateOverlay 0.4s ease-out 1.6s forwards;
+  animation: activateOverlay 0.2s ease-out 0.7s forwards;
 }
 
 @keyframes activateOverlay {
@@ -477,7 +477,7 @@
   }
 }
 
-/* INNER BORDER - FASTER */
+/* INNER BORDER - ULTRA FAST */
 .innerBorder {
   position: absolute;
   inset: 8px;
@@ -487,7 +487,7 @@
 }
 
 .cardContainer:hover .innerBorder {
-  animation: activateInnerBorder 0.4s ease-out 1.6s forwards;
+  animation: activateInnerBorder 0.2s ease-out 0.7s forwards;
 }
 
 @keyframes activateInnerBorder {
@@ -501,7 +501,7 @@
   }
 }
 
-/* SPARKLES - START EARLIER */
+/* SPARKLES - START IMMEDIATELY */
 .sparkle {
   position: absolute;
   width: 6px;
@@ -535,16 +535,16 @@
 }
 
 .cardContainer:hover .sparkle1 {
-  animation-delay: 1.8s;
+  animation-delay: 0.8s;
 }
 .cardContainer:hover .sparkle2 {
-  animation-delay: 1.9s;
+  animation-delay: 0.85s;
 }
 .cardContainer:hover .sparkle3 {
-  animation-delay: 2s;
+  animation-delay: 0.9s;
 }
 .cardContainer:hover .sparkle4 {
-  animation-delay: 2.1s;
+  animation-delay: 0.95s;
 }
 
 @keyframes sparkleEffect {

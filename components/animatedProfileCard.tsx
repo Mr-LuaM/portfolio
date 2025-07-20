@@ -27,10 +27,10 @@ const AnimatedProfileCard = ({
     // Reset sound flag for new hover
     hasPlayedSound.current = false
 
-     // Trigger image transformation after 1.5s (FASTER)
-    setTimeout(() => setIsTransformed(true), 1500)
+     // Trigger image transformation after 0.6s (ULTRA FAST)
+    setTimeout(() => setIsTransformed(true), 600)
 
-    // Play sound effect after merge completes (1.5s - FASTER)
+    // Play sound effect after merge completes (0.6s - ULTRA FAST)
     setTimeout(() => {
       if (!hasPlayedSound.current && audioRef.current) {
         audioRef.current.currentTime = 0 // Reset to beginning
@@ -39,7 +39,7 @@ const AnimatedProfileCard = ({
         })
         hasPlayedSound.current = true
       }
-    }, 1500)
+    }, 600)
   }
 
   const handleMouseLeave = () => {
