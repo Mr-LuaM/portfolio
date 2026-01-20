@@ -4,7 +4,7 @@ const ActionButtons = () => (
         <a
             target="_blank"
             className="inline-flex h-7 md:h-8 items-center rounded-lg bg-foreground px-2.5 md:px-4 text-[10px] md:text-xs font-medium text-background transition-all duration-200 hover:bg-foreground/90 hover:-translate-y-0.5 gap-1 md:gap-1.5 whitespace-nowrap"
-            href="/Lua_Resume_v2.pdf"
+            href="/Lua_Resume_v2.1pdf"
 
         >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
